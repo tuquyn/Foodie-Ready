@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<mat-tab-group fitInkBarToContent>
+  <mat-tab label="1 day">
+    <ng-container
+      *ngTemplateOutlet="listTable">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="1 week">
+    <ng-container
+      *ngTemplateOutlet="listTable">
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #listTable>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="imageUrl">
+      <mat-header-cell *matHeaderCellDef> Describe </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-card>
+          <img mat-card-image class="imgFood" src="{{row.imageUrl}}" alt="">
+        </mat-card>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['name', 'imageUrl']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['name', 'imageUrl']"></mat-row>
+  </mat-table>
+</ng-template>

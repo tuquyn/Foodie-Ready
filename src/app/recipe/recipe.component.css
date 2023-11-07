@@ -1,0 +1,8 @@
+.img{
+  width: 200px;
+  height: auto;
+}
+mat-grid-tile{
+  top: 20px;
+  margin: 20px;
+}

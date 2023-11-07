@@ -1,0 +1,9 @@
+.side{
+  flex: 1 1 auto;
+}
+.side-right{
+  margin: 8px;
+}
+.side-right:hover{
+  cursor: pointer;
+}
