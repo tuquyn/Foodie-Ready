@@ -17,6 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlanComponent } from './plan/plan.component';
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
+import { FooterComponent } from './footer/footer.component';
+import { PosterComponent } from './poster/poster.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,8 @@ const routes: Routes = [
     NavbarComponent,
     PlanComponent,
     RecipeDetailComponent,
+    FooterComponent,
+    PosterComponent,
   ],
   imports: [
     BrowserModule,

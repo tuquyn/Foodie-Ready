@@ -7,3 +7,14 @@
 .side-right:hover{
   cursor: pointer;
 }
+.navbar-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.header{
+    background: linear-gradient(to right, #ff4081, #455ae8);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    height: 60px;
+    margin-bottom: 10px;
+}
