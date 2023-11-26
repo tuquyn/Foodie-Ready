@@ -1,0 +1,55 @@
+<h1 mat-dialog-title><h1>{{recipe?.name}}</h1></h1>
+<button mat-icon-button mat-dialog-close>
+    <span class="material-icons">
+    chevron_left
+    </span>
+</button>
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Overview">
+        <div class="tabs">
+            <div class="example-large-box mat-elevation-z4">
+                Large content
+            </div>
+            <div>
+                <h2>
+                    Description:
+                </h2>
+                <p>{{recipe?.description}}</p>
+                <h2>
+                    Author:
+                </h2>
+                <p>{{recipe?.author}}</p>
+                <h2>Nutrition</h2>
+                <p>
+                    Coming soon
+                </p>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Step by step">
+        <div class="tabs">
+            <div class="example-small-box mat-elevation-z4">
+                Small content
+            </div>
+            <div>
+                <h2>
+                    Ingredient:
+                </h2>
+                <mat-list>
+                    <mat-list-item *ngFor="let item of recipe?.ingredient">
+                        {{ item }}
+                    </mat-list-item>
+                </mat-list>
+                <h2>Instruction</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus dolorum facere, illum,
+                    impedit magnam molestias nobis nulla numquam, ratione repellat sed sunt voluptatem voluptatibus!
+                    Deleniti illo maiores quis veniam voluptas!</p>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Add to plan</button>
+    <button mat-button [mat-dialog-close]="data"
+            cdkFocusInitial>Comment Now</button>
+</div>

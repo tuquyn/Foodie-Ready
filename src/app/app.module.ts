@@ -8,6 +8,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +22,8 @@ import { PlanComponent } from './plan/plan.component';
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
 import { FooterComponent } from './footer/footer.component';
 import { PosterComponent } from './poster/poster.component';
+import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 const routes: Routes = [
@@ -40,19 +45,23 @@ const routes: Routes = [
     RecipeDetailComponent,
     FooterComponent,
     PosterComponent,
+    RecipeDialogComponent,
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    MatToolbarModule,
-    MatIconModule,
-    MatCardModule,
-    MatTableModule,
-    MatTabsModule,
-    MatGridListModule,
-    MatStepperModule,
-    BrowserAnimationsModule,
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        MatToolbarModule,
+        MatIconModule,
+        MatCardModule,
+        MatTableModule,
+        MatTabsModule,
+        MatDialogModule,
+        MatGridListModule,
+        MatStepperModule,
+        MatListModule,
+        BrowserAnimationsModule,
+        MatButtonToggleModule,
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })
