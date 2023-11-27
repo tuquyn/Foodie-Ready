@@ -10,7 +10,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,8 +27,6 @@ import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.comp
 import { FooterComponent } from './footer/footer.component';
 import { PosterComponent } from './poster/poster.component';
 import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
-
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -59,8 +61,12 @@ const routes: Routes = [
         MatGridListModule,
         MatStepperModule,
         MatListModule,
+        MatDatepickerModule,
         BrowserAnimationsModule,
         MatButtonToggleModule,
+        MatNativeDateModule,
+        MatInputModule,
+        FormsModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

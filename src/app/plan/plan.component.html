@@ -1,33 +1,43 @@
 <app-navbar></app-navbar>
-<mat-tab-group fitInkBarToContent>
-  <mat-tab label="1 day">
-    <ng-container
-      *ngTemplateOutlet="listTable">
-    </ng-container>
-  </mat-tab>
-  <mat-tab label="1 week">
-    <ng-container
-      *ngTemplateOutlet="listTable">
-    </ng-container>
-  </mat-tab>
-</mat-tab-group>
-
-<ng-template #listTable>
-  <mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="imageUrl">
-      <mat-header-cell *matHeaderCellDef> Describe </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-card>
-          <img mat-card-image class="imgFood" src="{{row.imageUrl}}" alt="">
-        </mat-card>
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="['name', 'imageUrl']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['name', 'imageUrl']"></mat-row>
-  </mat-table>
-</ng-template>
+<div class="calendar-container">
+    <mat-card class="demo-inline-calendar-card calendar">
+        <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+    </mat-card>
+    <div class="event-table">
+        <h2>Event Table</h2>
+        <table *ngIf="selectedDayEvents.length > 0">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>(Update Later)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let event of sortedDayEvents()">
+                <td >{{ event.type }}</td>
+                <td>{{ event.title }}</td>
+                <td>
+                    <button class="custom-button edit" disabled>Edit</button>
+                    <button class="custom-button delete" disabled>Delete</button>
+                </td>
+            </tr>
+            <tr *ngIf="isAddingNewItem">
+                <td>
+                    <input type="text" name="newItemName">
+                </td>
+                <td>
+                    <input type="text" name="newItemName">
+                </td>
+                <td>
+                    <button class="custom-button save-new" (click)="saveNewItem()">Save</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p *ngIf="selectedDayEvents.length === 0">No events for the selected day.</p>
+        <button class="custom-button add-new" (click)="startAddingNewItem()">Add</button>
+        <button *ngIf="isAddingNewItem" class="custom-button add-new" (click)="cancelAddingNewItem()">Cancel</button>
+    </div>
+</div>
 <app-footer></app-footer>
