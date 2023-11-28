@@ -19,7 +19,6 @@ export class PlanComponent implements OnInit{
             event =>
                 (event.startTime.toDateString() === this.selectedDate.toDateString())
         )
-        console.log(this.selectedDayEvents)
     }
     ngOnInit(){
         this.events = [

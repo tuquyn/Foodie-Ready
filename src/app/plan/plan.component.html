@@ -5,16 +5,16 @@
     </mat-card>
     <div class="event-table">
         <h2>Event Table</h2>
-        <table *ngIf="selectedDayEvents.length > 0">
+        <table *ngIf="selectedDayEvents.length > 0 || isAddingNewItem">
             <thead>
-            <tr>
+            <tr mat-header-cell>
                 <th>Type</th>
                 <th>Name</th>
                 <th>(Update Later)</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let event of sortedDayEvents()">
+            <tr mat-cell *ngFor="let event of sortedDayEvents()">
                 <td >{{ event.type }}</td>
                 <td>{{ event.title }}</td>
                 <td>
@@ -35,7 +35,7 @@
             </tr>
             </tbody>
         </table>
-        <p *ngIf="selectedDayEvents.length === 0">No events for the selected day.</p>
+        <p *ngIf="selectedDayEvents.length === 0 && !isAddingNewItem">No events for the selected day.</p>
         <button class="custom-button add-new" (click)="startAddingNewItem()">Add</button>
         <button *ngIf="isAddingNewItem" class="custom-button add-new" (click)="cancelAddingNewItem()">Cancel</button>
     </div>

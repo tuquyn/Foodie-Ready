@@ -14,7 +14,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from "@angular/material/button";
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -27,12 +33,15 @@ import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.comp
 import { FooterComponent } from './footer/footer.component';
 import { PosterComponent } from './poster/poster.component';
 import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
+import { GroceryListComponent } from './grocery-list/grocery-list.component';
+import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'recipe', component: RecipeComponent },
   { path: 'plan', component: PlanComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'grocery-list', component: GroceryListComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ]
 
@@ -48,6 +57,8 @@ const routes: Routes = [
     FooterComponent,
     PosterComponent,
     RecipeDialogComponent,
+    GroceryListComponent,
+    LoginSheetComponent,
   ],
     imports: [
         BrowserModule,
@@ -66,7 +77,13 @@ const routes: Routes = [
         MatButtonToggleModule,
         MatNativeDateModule,
         MatInputModule,
+        MatRippleModule,
+        MatCheckboxModule,
+        MatAutocompleteModule,
         FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatBottomSheetModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

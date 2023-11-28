@@ -1,20 +1,36 @@
 <app-navbar></app-navbar>
-<mat-stepper>
-  <mat-step label="Step 1">
-    <p>Put down your name.</p>
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-  <mat-step label="Step 2">
-    <p>Put down your password.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
-  <mat-step label="Step 3">
-    <p>You're welcome.</p>
-  </mat-step>
-</mat-stepper>
+<div class="body">
+  <h2>CREATE AN ACCOUNT</h2>
+  <hr>
+  <p>Save and share your favourite recipes, create custom meal plans and grocery lists.</p>
+  <mat-stepper class="body">
+    <mat-step label="Step 1">
+      <p>Put down your name.</p>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Step 2">
+      <p>Put down your username.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Step 3">
+      <p>Put down your password</p>
+    </mat-step>
+  </mat-stepper>
+
+  <h2>Already have an account?</h2>
+  <hr>
+  <h3>Sign In</h3>
+  <label>Username</label>
+  <input type="text" matInput>
+  <br>
+  <label>Password</label>
+  <input type="password" matInput>
+  <br>
+  <button mat-raised-button>Login</button>
+</div>
 <app-footer></app-footer>

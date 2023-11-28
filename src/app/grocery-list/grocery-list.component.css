@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.left-side{
+    width: 60%;
+}
+.right-side{
+    width: 30%;
+}
+.mat-mdc-table {
+    overflow: auto;
+}
+
+.mat-column-name {
+    height: 100px;
+}
+mat-form-field{
+    width: 130px;
+}
+
