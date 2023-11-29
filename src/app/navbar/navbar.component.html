@@ -8,7 +8,16 @@
     <span [routerLink]="'/recipe'" class="side-right">Recipe</span>
     <span [routerLink]="'/plan'" class="side-right">Plan</span>
     <span [routerLink]="'/grocery-list'" class="side-right">Grocery List</span>
-    <span [routerLink]="'/account'" class="side-right">Log In</span>
+    <div *ngIf="!(isLoggedIn$ | async); else menuOption">
+        <span [routerLink]="'/account'" class="side-right">Log In</span>
+    </div>
+      <ng-template #menuOption>
+          <button mat-flat-button color="basic" [matMenuTriggerFor]="users">Welcome {{username$ | async}}</button>
+          <mat-menu #users="matMenu">
+              <button mat-menu-item (click)="redirectToUserPage()">My Account</button>
+              <button mat-menu-item (click)="logout()">Sign Out</button>
+          </mat-menu>
+      </ng-template>
     <mat-icon>search</mat-icon>
   </ng-container>
 </mat-toolbar>

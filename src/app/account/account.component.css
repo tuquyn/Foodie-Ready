@@ -1,6 +1,24 @@
 .body{
-    background-color: #faefd8;
+    background: url('/assets/bg-1.jpg') center/cover no-repeat;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    display: flex;
+    min-height: 54%;
 }
+.container{
+    width: 50%;
+    height: 100%;
+    margin: 2px;
+    opacity: 90%;
+}
+.right{
+    right: 0;
+}
+.full{
+    width: 80%;
+}
+.colorPink{
+    color-interpolation: auto;
+}
+

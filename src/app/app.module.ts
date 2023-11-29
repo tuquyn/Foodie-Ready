@@ -14,13 +14,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from "@angular/material/button";
-
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -35,6 +38,10 @@ import { PosterComponent } from './poster/poster.component';
 import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
 import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
+import { SignInComponent } from './account/sign-in/sign-in.component';
+import { SignUpComponent } from './account/sign-up/sign-up.component';
+import { SignOutComponent } from './account/sign-out/sign-out.component';
+import { UserComponent } from './account/user/user.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -42,6 +49,7 @@ const routes: Routes = [
   { path: 'plan', component: PlanComponent },
   { path: 'account', component: AccountComponent },
   { path: 'grocery-list', component: GroceryListComponent },
+  { path: 'user/:name', component: UserComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ]
 
@@ -59,6 +67,10 @@ const routes: Routes = [
     RecipeDialogComponent,
     GroceryListComponent,
     LoginSheetComponent,
+    SignInComponent,
+    SignUpComponent,
+    SignOutComponent,
+    UserComponent,
   ],
     imports: [
         BrowserModule,
@@ -84,6 +96,10 @@ const routes: Routes = [
         ReactiveFormsModule,
         MatButtonModule,
         MatBottomSheetModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatSnackBarModule,
+        MatMenuModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,36 +1,82 @@
 <app-navbar></app-navbar>
 <div class="body">
-  <h2>CREATE AN ACCOUNT</h2>
-  <hr>
-  <p>Save and share your favourite recipes, create custom meal plans and grocery lists.</p>
-  <mat-stepper class="body">
-    <mat-step label="Step 1">
-      <p>Put down your name.</p>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </mat-step>
-    <mat-step label="Step 2">
-      <p>Put down your username.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </mat-step>
-    <mat-step label="Step 3">
-      <p>Put down your password</p>
-    </mat-step>
-  </mat-stepper>
-
-  <h2>Already have an account?</h2>
-  <hr>
-  <h3>Sign In</h3>
-  <label>Username</label>
-  <input type="text" matInput>
-  <br>
-  <label>Password</label>
-  <input type="password" matInput>
-  <br>
-  <button mat-raised-button>Login</button>
+    <div class="container left">
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h2>CREATE AN ACCOUNT</h2>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <hr>
+            <mat-stepper [linear]="true" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>Step 1</ng-template>
+                        <mat-form-field class="full">
+                            <mat-label>Your name</mat-label>
+                            <input matInput placeholder="Ex. lalala" formControlName="firstCtrl" required>
+                        </mat-form-field>
+                        <div>
+                            <button class="full" matStepperNext mat-raised-button color="primary">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" label="Step 2">
+                    <form [formGroup]="secondFormGroup">
+                        <mat-form-field class="full">
+                            <mat-label>Your username</mat-label>
+                            <input matInput formControlName="secondCtrl" placeholder="{{this.firstFormGroup.controls['firstCtrl'].value}}123"
+                                   required>
+                        </mat-form-field>
+                        <div>
+                            <button class="full" matStepperPrevious mat-raised-button>Back</button>
+                            <button class="full" matStepperNext mat-raised-button color="primary">Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup" label="Step 3">
+                    <form [formGroup]="thirdFormGroup">
+                        <mat-form-field class="full">
+                            <mat-label>Your password</mat-label>
+                            <input matInput formControlName="thirdCtrl" [type]="hidePsw ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hidePsw = !hidePsw" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePsw">
+                                <mat-icon>{{hidePsw ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <div>
+                            <button class="full" matStepperPrevious mat-raised-button>Back</button>
+                            <button class="full" matStepperNext mat-raised-button color="warn" (click)="stepper.reset()">Reset</button>
+                            <button class="full" matStepperNext mat-raised-button color="primary" (click)="signUp()">Sign up</button>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-stepper>
+        </mat-expansion-panel>
+    </div>
+    <div class="container right">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h2>Already have an account?</h2>
+                    <hr>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <hr>
+            <mat-form-field class="full">
+                <mat-label>Enter your username</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hidePsw ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hidePsw = !hidePsw" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePsw">
+                    <mat-icon>{{hidePsw ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <br>
+            <button class="full" mat-raised-button color="accent" (click)="signIn()" >Login</button>
+        </mat-expansion-panel>
+    </div>
 </div>
 <app-footer></app-footer>

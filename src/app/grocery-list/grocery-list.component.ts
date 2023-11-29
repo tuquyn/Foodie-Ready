@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Ingredient} from "../models/ingredient";
+import {Ingredient} from "../_models/ingredient";
 import {MatTableDataSource} from "@angular/material/table";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 

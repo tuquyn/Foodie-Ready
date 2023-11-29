@@ -16,5 +16,8 @@
     background: linear-gradient(to right, #ff4081, #455ae8);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     height: 60px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+span:hover{
+    color: #333333;
 }
