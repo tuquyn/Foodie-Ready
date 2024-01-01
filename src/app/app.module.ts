@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,6 +26,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -42,6 +47,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
 import { SignUpComponent } from './account/sign-up/sign-up.component';
 import { SignOutComponent } from './account/sign-out/sign-out.component';
 import { UserComponent } from './account/user/user.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -71,8 +77,11 @@ const routes: Routes = [
     SignUpComponent,
     SignOutComponent,
     UserComponent,
+    CalendarComponent,
   ],
     imports: [
+        HttpClientModule,
+        CanvasJSAngularChartsModule,
         BrowserModule,
         RouterModule.forRoot(routes),
         MatToolbarModule,
@@ -100,6 +109,9 @@ const routes: Routes = [
         MatExpansionModule,
         MatSnackBarModule,
         MatMenuModule,
+        MatPaginatorModule,
+        MatSortModule,
+        DragDropModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,11 +1,21 @@
 .img{
-  width: 200px;
-  height: auto;
+    max-height: 200px;
+    max-width: 200px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
 mat-grid-tile{
-  top: 20px;
-  margin: 20px;
+    margin: 2px;
 }
 .center{
   text-align: center;
+}
+.box-background{
+    max-width: 300px;
+    max-height: 400px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
 }

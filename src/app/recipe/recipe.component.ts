@@ -1,22 +1,58 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RecipeService} from "../_services/recipe.service";
+import {Recipe} from "../_models/recipe";
+import {RecipeDialogComponent} from "../recipe-dialog/recipe-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.css']
 })
-export class RecipeComponent {
-  dataSource= ELEMENT_DATA;
-  image: any;
-
+export class RecipeComponent implements OnInit{
+    dataSource: Recipe[];
+    constructor(private recipeService: RecipeService,
+                public dialog: MatDialog,
+                ) {
+        this.dataSource = [];
+    }
+    ngOnInit(){
+        this.recipeService.getRecipe(1).subscribe(res => this.setNewRecipe(res));
+        this.recipeService.getRecipe(2).subscribe(res => this.setNewRecipe(res));
+        this.recipeService.getRecipe(3).subscribe(res => this.setNewRecipe(res));
+        this.recipeService.getRecipe(1).subscribe(res => this.setNewRecipe(res));
+        this.recipeService.getRecipe(2).subscribe(res => this.setNewRecipe(res));
+    }
+    setNewRecipe(res: any){
+        console.log(res)
+        let newRecipe: Recipe = {
+            id: res.id || null,
+            name: res.title || '',
+            description: res.summary || '',
+            cookingTime: res.cookingMinutes || 0,
+            preparationTime: res.preparationMinutes || 0,
+            readyTime: res.readyInMinutes || 0,
+            instruction: (res.analyzedInstructions && res.analyzedInstructions[0]?.steps) || [],
+            nutrition: res.nutrition.nutrients,
+            ingredient: res.extendedIngredients || [],
+            image: res.image || '',
+            servings: res.servings || 0,
+            caloricBreakdown: res.nutrition.caloricBreakdown,
+            dishTypes: res.dishTypes,
+        }
+        this.dataSource.push(newRecipe);
+    }
+    openDialog(item: Recipe){
+        let dialogRef = this.dialog.open(RecipeDialogComponent, {
+            width: '800px',
+            height: '600px',
+            data: item,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+    transform(item : string[]): string {
+        let combinedString = item.join(', ');
+        return combinedString.slice(0, 50) + (combinedString.length > 50 ? '...': '');
+    }
 }
-export interface Element {
-  name: string;
-  imageUrl: string;
-}
-
-const ELEMENT_DATA: Element[] = [
-  {name: '1', imageUrl: 'https://www.foodnetwork.com/content/dam/images/food/video/1/11/117/1176/11763609.jpg'},
-  {name: '2', imageUrl: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/69561926/DSC03616.16.jpg'},
-  {name: '3', imageUrl: 'https://s.hdnux.com/photos/01/31/13/12/23376574/3/1200x0.jpg'},
-];

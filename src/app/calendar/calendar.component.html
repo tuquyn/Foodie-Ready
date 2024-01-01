@@ -1,0 +1,33 @@
+<div class="container-calendar">
+    <div class="calendar-header">
+        <div class="title-month">
+            <button mat-button class="previous" (click)="showOtherMonth('previous')">Previous</button>
+            <h2>{{getCalendarView() | date: 'MMMM y'}}</h2>
+            <button mat-button class="next" (click)="showOtherMonth('next')">Next</button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="weekday-full">Sunday</th>
+                <th class="weekday-full">Monday</th>
+                <th class="weekday-full">Tuesday</th>
+                <th class="weekday-full">Wednesday</th>
+                <th class="weekday-full">Thursday</th>
+                <th class="weekday-full">Friday</th>
+                <th class="weekday-full">Saturday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <mat-grid-list cols="7" rowHeight="100px">
+                <mat-grid-tile (click)="changeChoosingDay(day)" class="container-grid"  *ngFor="let day of days" [class.weekend]="isWeekend(day)">
+                    <div class="day" [class.today-calendar-mark]="isChoosing(day)"
+                         [class.other-month-day]="isDayFromOtherMonth(day)">
+                        <span class="day-number">{{ day.getDate() }}</span>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </tbody>
+    </table>
+</div>

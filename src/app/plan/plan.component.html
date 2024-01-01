@@ -1,43 +1,38 @@
 <app-navbar></app-navbar>
 <div class="calendar-container">
     <mat-card class="demo-inline-calendar-card calendar">
-        <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+        <app-calendar></app-calendar>
     </mat-card>
+
     <div class="event-table">
-        <h2>Event Table</h2>
-        <table *ngIf="selectedDayEvents.length > 0 || isAddingNewItem">
-            <thead>
-            <tr mat-header-cell>
-                <th>Type</th>
-                <th>Name</th>
-                <th>(Update Later)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr mat-cell *ngFor="let event of sortedDayEvents()">
-                <td >{{ event.type }}</td>
-                <td>{{ event.title }}</td>
-                <td>
-                    <button class="custom-button edit" disabled>Edit</button>
-                    <button class="custom-button delete" disabled>Delete</button>
-                </td>
-            </tr>
-            <tr *ngIf="isAddingNewItem">
-                <td>
-                    <input type="text" name="newItemName">
-                </td>
-                <td>
-                    <input type="text" name="newItemName">
-                </td>
-                <td>
-                    <button class="custom-button save-new" (click)="saveNewItem()">Save</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p *ngIf="selectedDayEvents.length === 0 && !isAddingNewItem">No events for the selected day.</p>
-        <button class="custom-button add-new" (click)="startAddingNewItem()">Add</button>
-        <button *ngIf="isAddingNewItem" class="custom-button add-new" (click)="cancelAddingNewItem()">Cancel</button>
+        <p>{{getCalendarView()}}</p>
+        <div cdkDropListGroup>
+            <div class="container">
+                <h2>Plan Table</h2>
+
+                <div
+                    cdkDropList
+                    [cdkDropListData]="planList"
+                    class="example-list"
+                    cdkDropListSortingDisabled
+                    (cdkDropListDropped)="drop($event)">
+                    <div *ngFor="let item of planList" class="example-box" cdkDrag>{{ item }}</div>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2>Saved Table</h2>
+
+                <div
+                    cdkDropList
+                    [cdkDropListData]="favoriteList"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div *ngFor="let item of favoriteList" class="example-box" cdkDrag>{{ item }}</div>
+                </div>
+            </div>
+        </div>
+        <button class="custom-button save">Save</button>
     </div>
 </div>
 <app-footer></app-footer>

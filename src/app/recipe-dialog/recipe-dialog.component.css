@@ -1,5 +1,5 @@
 .example-small-box, .example-large-box {
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     margin: 16px;
@@ -29,6 +29,105 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
 .tabs{
+    display: flex;
+}
+
+.image-container {
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: 100px;
+}
+.image-small-container {
+    max-width: 100px;
+    max-height: 100px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+.red-container{
+    background: #dc3545;
+}
+.blue-container{
+    background: #007BFF;
+}
+.green-container{
+    background: #28a745;
+}
+.yellow-container{
+    background: #ffc107;
+}
+.pink-container{
+    background: #f676a9;
+}
+.red-container, .blue-container, .green-container, .yellow-container, .pink-container{
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    padding: 10px;
+    border: 2px solid #ADD8E6;
+    font-weight: bold;
+    text-align: center;
+    color: antiquewhite;
+    cursor: pointer;
+}
+.red-container:hover, .blue-container:hover, .green-container:hover, .yellow-container:hover,
+    .pink-container:hover
+{
+    color: darkblue;
+}
+.content{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Apply a subtle box shadow */
+    background-color: #efefef; /* Set grey background color */
+    color: #2c3e50; /* Set text color */
+}
+.nutri-table{
+    max-width: 100%;
+    height: 200px;
+    overflow: auto;
+}
+
+td.mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+}
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+}
+.bottomButton {
+    display: flex;
+    justify-content: center;
+}
+.bg{
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+}
+.subtitle{
     display: flex;
 }
