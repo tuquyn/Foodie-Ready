@@ -2,15 +2,15 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    background: url("https://cdn.stocksnap.io/img-thumbs/960w/simple-holiday_UQZKJ9PQVR.jpg") center/cover;
 }
 .left-side{
     width: 60%;
+    max-height: 400px;
+    overflow: auto;
 }
 .right-side{
     width: 30%;
-}
-.mat-mdc-table {
-    overflow: auto;
 }
 
 .mat-column-name {
@@ -19,4 +19,3 @@
 mat-form-field{
     width: 130px;
 }
-

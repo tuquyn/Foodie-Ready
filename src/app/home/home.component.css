@@ -1,3 +1,4 @@
-.example-box{
-    background: #ffc107;
+.container{
+    height: 500px;
+    background: url("https://cdn.stocksnap.io/img-thumbs/960w/noodles-cooking_30DIV2QY3M.jpg") center/cover no-repeat;
 }

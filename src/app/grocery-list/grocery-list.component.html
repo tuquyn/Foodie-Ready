@@ -3,48 +3,10 @@
     <div class="left-side">
         <h2>Ingredients({{ingredientList.length}})</h2>
         <hr>
-        <h3>Add new</h3>
-        <div>
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="newItem.name"/>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Quantity</mat-label>
-                <input type="number" matInput [(ngModel)]="newItem.quantity" />
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Unit</mat-label>
-                <input matInput [(ngModel)]="newItem.unit" />
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Notes</mat-label>
-                <input matInput [(ngModel)]="newItem.notes" />
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Dept</mat-label>
-                <input
-                    matInput
-                    [formControl]="myControl"
-                    [matAutocomplete]="auto"/>
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of options">
-                        {{ option }}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-
-            <button id="save" mat-raised-button color="primary" mat-button (click)="onSave()" [disabled]="!newItem.name">Save</button>
-        </div>
-
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Position</th>
-                <td mat-cell *matCellDef="let item">{{ item.id }}</td>
+                <td mat-cell *matCellDef="let item; let i = index">{{ i+1 }}</td>
             </ng-container>
 
             <ng-container matColumnDef="name">
@@ -62,22 +24,12 @@
                 <td mat-cell *matCellDef="let item">{{ item.unit }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="notes">
-                <th mat-header-cell *matHeaderCellDef>Note</th>
-                <td mat-cell *matCellDef="let item">{{ item.notes }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="dept">
-                <th mat-header-cell *matHeaderCellDef>Dept</th>
-                <td mat-cell *matCellDef="let item">{{ item.dept }}</td>
-            </ng-container>
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
     <div class="right-side">
-        <h2>Recipe({{recipeList.length}})</h2>
+        <h2>Recipe({{listCart.length}})</h2>
         <span>
             <mat-checkbox
                   [checked]="allComplete"
@@ -88,9 +40,9 @@
         </span>
         <hr>
         <span class="example-list-section">
-            <div *ngFor="let item of recipeList">
+            <div *ngFor="let item of listCart">
               <mat-checkbox [(ngModel)]="item.selected" [ngModelOptions]="{standalone: true}" (change)="updateSelect()">
-                {{ item.name }}
+                {{ getRecipeName(item.id) }}
               </mat-checkbox>
             </div>
         </span>

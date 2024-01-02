@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Ingredient} from "../_models/ingredient";
 import {MatTableDataSource} from "@angular/material/table";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {UserService} from "../_services/user.service";
+import {RecipeService} from "../_services/recipe.service";
 
 @Component({
   selector: 'app-grocery-list',
@@ -9,60 +9,75 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
   styleUrls: ['./grocery-list.component.css']
 })
 export class GroceryListComponent implements OnInit{
-    @Input() ingredientList: Ingredient[] = [];
-    @Input() recipeList: Task[] = [];
-    newItem: any = {};
+    ingredientList : any[] = [];
+    recipeList:any[] = [];
+    listCart:any[] = [];
     allComplete: boolean = false;
-    displayedColumns: string[] = ['id', 'name', 'quantity', 'unit', 'notes', 'dept'];
+    displayedColumns: string[] = ['id', 'name', 'quantity', 'unit'];
     dataSource!: MatTableDataSource<any>;
-    // displayedColumns: string[] = ['name', 'quantity']; // Add more column names as needed
-    myControl = new FormControl('');
-    options: string[] = ['Baking', 'Beverage', 'Canned Goods', 'Dairy', 'Frozen Food', 'Meat', 'Produce', 'Other'];
-
+    constructor(private userService: UserService,
+                private recipeService: RecipeService) {
+    }
     ngOnInit(){
-        this.recipeList = [
-            {id: 1, name: 'Phở', selected: false},
-            {id: 2, name: 'Bún', selected: false},
-            {id: 3, name: 'Cơm', selected: false},
-        ]
-        this.ingredientList = [
-            { id: 1, name: 'Ingredient 1', quantity: 5, unit: 'kg', notes: '', dept: '' },
-            { id: 2, name: 'Ingredient 2', quantity: 10, unit: 'g', notes: '', dept: '' },
-            { id: 3, name: 'Ingredient 3', quantity: 2, unit: 'L', notes: '', dept: '' },
-        ];
+        this.recipeService.getRecipeListInfo().subscribe(res => {
+            this.recipeList = res;
+        });
+        this.userService.getCart().subscribe(res => {
+            this.listCart = [
+                {id: 1, selected: false},
+                {id: 2, selected: false},
+                {id: 3, selected: false},
+            ];
+        });
+        this.setIngredientList();
+    }
+    setIngredientList(){
+        let list = this.listCart.filter(element => element.selected === true).map(e => e.id);
+        this.ingredientList = [];
 
-        this.dataSource = new MatTableDataSource(this.ingredientList);
+        for(let id of list)
+        {
+            let listIngredient = this.recipeList.filter(e => e.id == id).map(e => e.extendedIngredients)[0];
+            console.log(listIngredient)
+            for(let e of listIngredient){
+                let index = this.ingredientList.findIndex(f => f.id == e.id && f.unit == e.unit);
+                if(index == -1){
+                    this.ingredientList.push({
+                        id: e.id,
+                        name: e.name,
+                        quantity: e.amount,
+                        unit: e.unit,
+                    });
+                }else{
+                    this.ingredientList[index].amount += e.amount;
+                }
+            }
+        }
+        this.ingredientList = this.ingredientList.sort(e => e.name);
+        this.updateDataSource();
     }
     someComplete(){
-        if (this.recipeList == null) {
+        if (this.listCart == null) {
             return false;
         }
-        return this.recipeList.filter(t => t.selected).length > 0 && !this.allComplete;
+        return this.listCart.filter(t => t.selected).length > 0 && !this.allComplete;
     }
     setAll(completed: boolean){
         this.allComplete = completed;
-        if (this.recipeList == null) {
+        if (this.listCart == null) {
             return;
         }
-        this.recipeList.forEach(t => (t.selected = completed));
+        this.listCart.forEach(t => (t.selected = completed));
+        this.setIngredientList();
     }
     updateSelect(){
-        this.allComplete = this.recipeList.filter(t => t.selected === true).length === this.recipeList.length
-    }
-    onSave(){
-        if (this.newItem) {
-            this.newItem.id = this.ingredientList.length + 1;
-            this.ingredientList.push(this.newItem);
-            this.updateDataSource();
-        }
-        this.newItem = {};
+        this.allComplete = this.listCart.filter(t => t.selected === true).length === this.listCart.length;
+        this.setIngredientList();
     }
     updateDataSource(){
-        this.dataSource = new MatTableDataSource(this.ingredientList);
+        this.dataSource = new MatTableDataSource(this.ingredientList)
     }
-}
-export interface Task{
-    id: number,
-    name: string,
-    selected: boolean,
+    getRecipeName(id: number){
+        return this.recipeList.filter(e => id == e.id).map(e => e.title);
+    }
 }

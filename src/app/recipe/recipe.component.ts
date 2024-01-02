@@ -17,14 +17,13 @@ export class RecipeComponent implements OnInit{
         this.dataSource = [];
     }
     ngOnInit(){
-        this.recipeService.getRecipe(1).subscribe(res => this.setNewRecipe(res));
-        this.recipeService.getRecipe(2).subscribe(res => this.setNewRecipe(res));
-        this.recipeService.getRecipe(3).subscribe(res => this.setNewRecipe(res));
-        this.recipeService.getRecipe(1).subscribe(res => this.setNewRecipe(res));
-        this.recipeService.getRecipe(2).subscribe(res => this.setNewRecipe(res));
+        this.recipeService.getRecipeListInfo().subscribe(res =>{
+            for (let e of res) {
+                this.setNewRecipe(e);
+            }
+        })
     }
     setNewRecipe(res: any){
-        console.log(res)
         let newRecipe: Recipe = {
             id: res.id || null,
             name: res.title || '',

@@ -3,7 +3,7 @@
 }
 .calendar-container {
     display: flex;
-    background: ivory;
+    background: url("https://cdn.stocksnap.io/img-thumbs/960w/birthday-confetti_GKYCLSYDLH.jpg") center/cover;
 
 }
 .calendar {

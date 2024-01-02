@@ -1,14 +1,15 @@
+<div class="container">
+
 <app-navbar></app-navbar>
-
-<button mat-raised-button (click)="openBottomSheet()">Sign up</button>
-<div *ngIf="isLoggedIn$ | async; else notLoggedIn">
-    <p>User is logged in</p>
+    <button mat-raised-button (click)="openBottomSheet()">Sign up</button>
+    <div *ngIf="isLoggedIn$ | async; else notLoggedIn">
+        <p>User is logged in</p>
+    </div>
+    <ng-template #notLoggedIn>
+        <p>User is not logged in</p>
+    </ng-template>
+    <button (click)="login()">Login</button>
+    <button (click)="logout()">Logout</button>
+    <button (click)="redirectToUserPage('john')">Go to John's Page</button>
 </div>
-<ng-template #notLoggedIn>
-    <p>User is not logged in</p>
-</ng-template>
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
-<button (click)="redirectToUserPage('john')">Go to John's Page</button>
-
 <app-footer></app-footer>

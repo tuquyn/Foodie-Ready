@@ -16,7 +16,7 @@
                     class="example-list"
                     cdkDropListSortingDisabled
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of planList" class="example-box" cdkDrag>{{ item }}</div>
+                    <div *ngFor="let item of planList" class="example-box" cdkDrag>{{ getRecipeName(item) }}</div>
                 </div>
             </div>
 
@@ -28,11 +28,11 @@
                     [cdkDropListData]="favoriteList"
                     class="example-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of favoriteList" class="example-box" cdkDrag>{{ item }}</div>
+                    <div *ngFor="let item of favoriteList" class="example-box" cdkDrag>{{ getRecipeName(item) }}</div>
                 </div>
             </div>
         </div>
-        <button class="custom-button save">Save</button>
+        <button (click)="savePlan()" class="custom-button save">Save</button>
     </div>
 </div>
 <app-footer></app-footer>

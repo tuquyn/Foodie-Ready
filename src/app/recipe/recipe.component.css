@@ -19,3 +19,6 @@ mat-grid-tile{
     display: flex;
     justify-content: space-between;
 }
+.container{
+    background: #e0e0e0;
+}
