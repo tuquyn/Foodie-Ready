@@ -6,8 +6,8 @@
   <ng-container>
     <span [routerLink]="'/home'" class="side-right">Home</span>
     <span [routerLink]="'/recipe'" class="side-right">Recipe</span>
-    <span [routerLink]="'/plan'" class="side-right">Plan</span>
-    <span [routerLink]="'/grocery-list'" class="side-right">Grocery List</span>
+    <span (click)="openBottomSheet()" [routerLink]="'/plan'" class="side-right">Plan</span>
+    <span (click)="openBottomSheet()" [routerLink]="'/grocery-list'" class="side-right">Grocery List</span>
     <div *ngIf="!(isLoggedIn$ | async); else menuOption">
         <span [routerLink]="'/account'" class="side-right">Log In</span>
     </div>

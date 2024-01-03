@@ -43,9 +43,6 @@ import { PosterComponent } from './poster/poster.component';
 import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
 import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
-import { SignInComponent } from './account/sign-in/sign-in.component';
-import { SignUpComponent } from './account/sign-up/sign-up.component';
-import { SignOutComponent } from './account/sign-out/sign-out.component';
 import { UserComponent } from './account/user/user.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
@@ -73,9 +70,6 @@ const routes: Routes = [
     RecipeDialogComponent,
     GroceryListComponent,
     LoginSheetComponent,
-    SignInComponent,
-    SignUpComponent,
-    SignOutComponent,
     UserComponent,
     CalendarComponent,
   ],

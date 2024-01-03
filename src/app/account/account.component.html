@@ -25,12 +25,12 @@
                     <form [formGroup]="secondFormGroup">
                         <mat-form-field class="full">
                             <mat-label>Your username</mat-label>
-                            <input matInput formControlName="secondCtrl" placeholder="{{this.firstFormGroup.controls['firstCtrl'].value}}123"
+                            <input (input)="hasUsername()" matInput formControlName="secondCtrl" placeholder="{{this.firstFormGroup.controls['firstCtrl'].value}}123"
                                    required>
                         </mat-form-field>
                         <div>
                             <button class="full" matStepperPrevious mat-raised-button>Back</button>
-                            <button class="full" matStepperNext mat-raised-button color="primary">Next</button>
+                            <button [disabled]="isUserValid" class="full" matStepperNext mat-raised-button color="primary">Next</button>
                         </div>
                     </form>
                 </mat-step>
@@ -64,15 +64,16 @@
             <hr>
             <mat-form-field class="full">
                 <mat-label>Enter your username</mat-label>
-                <input matInput>
+                <input matInput [(ngModel)]="user.username">
             </mat-form-field>
             <br>
             <mat-form-field class="full">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hidePsw ? 'password' : 'text'">
+                <input [(ngModel)]="user.pwd" matInput [type]="hidePsw ? 'password' : 'text'">
                 <button mat-icon-button matSuffix (click)="hidePsw = !hidePsw" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePsw">
                     <mat-icon>{{hidePsw ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
+
             </mat-form-field>
             <br>
             <button class="full" mat-raised-button color="accent" (click)="signIn()" >Login</button>

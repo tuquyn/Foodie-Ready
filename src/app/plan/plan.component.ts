@@ -5,6 +5,7 @@ import {compareNumbers} from "@angular/compiler-cli/src/version_helpers";
 import {UserService} from "../_services/user.service";
 import {Recipe} from "../_models/recipe";
 import {RecipeService} from "../_services/recipe.service";
+import {AuthService} from "../_services/auth.service";
 type EventTypeOrder = { [key: string]: number };
 @Component({
   selector: 'app-plan',

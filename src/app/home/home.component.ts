@@ -15,22 +15,9 @@ export class HomeComponent implements OnInit{
     constructor(
                 private _bottomSheet: MatBottomSheet,
                 private authService: AuthService,
-                private router: Router,
                 ) {
     }
     ngOnInit(){
     }
 
-    openBottomSheet() {
-        this._bottomSheet.open(LoginSheetComponent);
-    }
-    login(){
-        this.authService.signIn('lalala');
-    }
-    logout(){
-        this.authService.signOut();
-    }
-    redirectToUserPage(name: string) {
-        this.router.navigate(['/user', name]);
-    }
 }

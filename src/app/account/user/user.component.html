@@ -1,2 +1,13 @@
 <app-navbar></app-navbar>
+<div class="container">
+    <div class="avatar-container">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/home-flowers_RTEYB2HRH0.jpg" alt="User Avatar" class="avatar-img">
+    </div>
+    <div *ngIf="isLoggedIn$ | async" class="box">
+        <h2>Username: {{user?.username}}</h2>
+        <h2>Name: {{user?.name}}</h2>
+        <h2>Email: {{user?.email}}</h2>
+        <h2>Type: {{user?.dietType}}</h2>
+    </div>
+</div>
 <app-footer></app-footer>

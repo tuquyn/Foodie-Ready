@@ -1,4 +1,12 @@
 .container{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     height: 500px;
     background: url("https://cdn.stocksnap.io/img-thumbs/960w/noodles-cooking_30DIV2QY3M.jpg") center/cover no-repeat;
+}
+.centered-text{
+    text-align: center;
+    border: 10px solid #ADD8E6;
+    padding: 10px;
 }

@@ -1,0 +1,28 @@
+.container{
+    min-height: 500px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background: url("https://cdn.stocksnap.io/img-thumbs/960w/food-cook_771S335ARZ.jpg") center/cover;
+}
+.avatar-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.avatar-img {
+    width: 100%;
+    height: 100%; /* Make the image fill the container */
+    object-fit: cover; /* Ensure the image covers the entire container */
+}
+.box{
+    margin: 10px;
+    opacity: 70%;
+    min-width: 300px;
+    width: 80%;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    background: #f5f6ea;
+}

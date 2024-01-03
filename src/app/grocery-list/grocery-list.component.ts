@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {UserService} from "../_services/user.service";
 import {RecipeService} from "../_services/recipe.service";
+import {AuthService} from "../_services/auth.service";
 
 @Component({
   selector: 'app-grocery-list',

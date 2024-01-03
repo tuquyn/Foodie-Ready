@@ -1,15 +1,11 @@
+<app-navbar></app-navbar>
 <div class="container">
 
-<app-navbar></app-navbar>
-    <button mat-raised-button (click)="openBottomSheet()">Sign up</button>
-    <div *ngIf="isLoggedIn$ | async; else notLoggedIn">
-        <p>User is logged in</p>
+    <div *ngIf="isLoggedIn$ | async; else notLoggedIn" class="centered-text">
+        <img src="https://en.bloggif.com/tmp/fbea97569fde2a0fbc56a22e8f70a999/text.gif?1704285678" alt="">
     </div>
     <ng-template #notLoggedIn>
-        <p>User is not logged in</p>
+        <img src="https://en.bloggif.com/tmp/fbea97569fde2a0fbc56a22e8f70a999/text.gif?1704285032" alt="">
     </ng-template>
-    <button (click)="login()">Login</button>
-    <button (click)="logout()">Logout</button>
-    <button (click)="redirectToUserPage('john')">Go to John's Page</button>
 </div>
 <app-footer></app-footer>
