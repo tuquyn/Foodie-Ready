@@ -20,7 +20,7 @@ export class GroceryListComponent implements OnInit{
                 private recipeService: RecipeService) {
     }
     ngOnInit(){
-        this.recipeService.getRecipeListInfo().subscribe(res => {
+        this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
         this.userService.getCart().subscribe(res => {

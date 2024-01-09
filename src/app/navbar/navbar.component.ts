@@ -11,18 +11,21 @@ import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component"
 })
 export class NavbarComponent{
     isLoggedIn$ = this.authService.isLoggedIn$;
-    username$= this.authService.user$;
+    user$= this.authService.user$;
 
     constructor(private authService: AuthService,
                 private router: Router,
                 private _bottomSheet: MatBottomSheet,) {}
     redirectToUserPage() {
-        this.authService.getUser().subscribe((name: string) =>{
-            this.router.navigate(['/user', name]);
-        });
+        this.user$.subscribe(e => {
+            this.router.navigate(['/user', e.name]);
+        })
     }
     logout(){
         this.authService.signOut();
+        setTimeout(() => {
+            this.router.navigate(['/home']);
+        }, 2000);
     }
     openBottomSheet(){
         this.isLoggedIn$.subscribe(e => {

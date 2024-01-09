@@ -14,7 +14,7 @@
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
                 <mat-card-actions class="center">
                     <button mat-button>LIKE</button>
-                    <button mat-button>PLAN</button>
+                    <button [disabled]="true" mat-button>PLAN</button>
                     <button mat-button>ADD TO CART</button>
                 </mat-card-actions>
             </mat-card>

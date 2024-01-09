@@ -11,8 +11,8 @@ import {Router} from "@angular/router";
 })
 export class AccountComponent {
     hidePsw = true;
-    durationInSeconds = 3;
-    isLoggedIn$ = this.authService.isLoggedIn$;
+    durationInSeconds = 2;
+
     user: any = {username: '', pwd: ''};
     userList:any[] = [];
     isUserValid = false;
@@ -22,9 +22,7 @@ export class AccountComponent {
                 private authService: AuthService,
                 private router: Router,
     ) {
-        this.authService.getUserList().subscribe(e => {
-           this.userList = e;
-        });
+        this.getData();
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -37,13 +35,25 @@ export class AccountComponent {
         thirdCtrl: ['', Validators.required],
     });
 
-    signOut(){
-        this.authService.signOut();
+    getData(){
+        this.authService.getUserList().subscribe(e => {
+            this.userList = e;
+        });
+        this.isUserValid = false;
     }
     signUp(){
         try {
-            this.authService.signUp();
-            this.successAction();
+            let e = {
+                name: this.firstFormGroup.controls['firstCtrl'].value,
+                username: this.secondFormGroup.controls['secondCtrl'].value,
+                pwd: this.thirdFormGroup.controls['thirdCtrl'].value,
+            };
+
+            this.authService.postUser(e).subscribe( response => {
+                    this.successAction();
+                    this.getData();
+                }
+            );
         }catch {
             this.failAction();
         }
@@ -51,11 +61,12 @@ export class AccountComponent {
 
     signIn(){
         if(this.checkAccount()){
-            this.authService.signIn(this.user.username);
+            let index = this.userList.findIndex(e => e.username == this.user.username);
+            this.authService.signIn(this.userList[index]);
             this.successAction();
-            // setTimeout(() => {
-            //     this.router.navigate(['/user', name]);
-            // }, 5000);
+            setTimeout(() => {
+                this.router.navigate(['/home']);
+            }, 1000);
         }else{
             this.failAction();
         }
@@ -74,13 +85,7 @@ export class AccountComponent {
             verticalPosition: 'bottom',
         });
     }
-    refreshPage(){
-        setTimeout(() => {
-            location.reload();
-        }, 2000);
-    }
     checkAccount(){
-
         let index = this.userList.findIndex(e => e.username == this.user.username);
         if(index == -1 || this.userList[index].pwd != this.user.pwd){
             return false;

@@ -10,3 +10,9 @@
     border: 10px solid #ADD8E6;
     padding: 10px;
 }
+.text{
+    -webkit-text-stroke: 2px black;
+    color: #f5f6ea;
+    font-size: 100px;
+    text-align: center;
+}

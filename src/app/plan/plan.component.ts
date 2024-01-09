@@ -24,7 +24,7 @@ export class PlanComponent implements OnInit{
     recipeList:any[] = [];
     ngOnInit(){
         this.calendarView = this.calendarService.getCalendarView();
-        this.recipeService.getRecipeListInfo().subscribe(res => {
+        this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
         this.userService.getPlan().subscribe(res => {

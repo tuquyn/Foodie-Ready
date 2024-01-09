@@ -6,8 +6,7 @@ import {Recipe} from "../_models/recipe";
     providedIn: 'root'
 })
 export class RecipeService {
-    // private url = 'http://localhost:5001/api/Recipe';
-    private url = 'https://api.npoint.io/5c2d12958fb3e3bbeffe';
+    private url = 'http://localhost:5001/api/Recipe';
     private url2 = 'https://api.npoint.io/449f632a819956d63313';
 
     private recipeListSubject = new BehaviorSubject<any>([]);
@@ -22,16 +21,12 @@ export class RecipeService {
             this.recipeListInfoSubject.next(res);
         });
     }
-    getRecipe():Observable<any>{
-        return this.http.get<any>(this.url);
+    getRecipe(){
+        const url = this.url + '/GetAll';
+        return this.http.get<any>(url);
     }
-    getRecipeInfo(): Observable<any> {
-        return this.http.get<any>(this.url2);
-    }
-    getRecipeList(){
-        return this.recipeList$;
-    }
-    getRecipeListInfo(){
-        return this.recipeListInfoSubject;
+    getRecipeInfo(){
+        const url = this.url2;
+        return this.http.get<any>(url);
     }
 }

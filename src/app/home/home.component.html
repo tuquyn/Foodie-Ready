@@ -2,10 +2,10 @@
 <div class="container">
 
     <div *ngIf="isLoggedIn$ | async; else notLoggedIn" class="centered-text">
-        <img src="https://en.bloggif.com/tmp/fbea97569fde2a0fbc56a22e8f70a999/text.gif?1704285678" alt="">
+        <div class="text">Welcome back!</div>
     </div>
     <ng-template #notLoggedIn>
-        <img src="https://en.bloggif.com/tmp/fbea97569fde2a0fbc56a22e8f70a999/text.gif?1704285032" alt="">
+        <div class="text">Welcome!</div>
     </ng-template>
 </div>
 <app-footer></app-footer>
