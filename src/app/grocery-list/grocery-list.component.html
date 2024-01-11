@@ -29,7 +29,7 @@
         </table>
     </div>
     <div class="right-side">
-        <h2>Recipe({{listCart.length}})</h2>
+        <h2>Recipe({{cartList.length}})</h2>
         <span>
             <mat-checkbox
                   [checked]="allComplete"
@@ -40,7 +40,7 @@
         </span>
         <hr>
         <span class="example-list-section">
-            <div *ngFor="let item of listCart">
+            <div *ngFor="let item of cartList">
               <mat-checkbox [(ngModel)]="item.selected" [ngModelOptions]="{standalone: true}" (change)="updateSelect()">
                 {{ getRecipeName(item.id) }}
               </mat-checkbox>

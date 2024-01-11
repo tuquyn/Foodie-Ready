@@ -1,12 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CalendarService} from "../_services/calendar.service";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {compareNumbers} from "@angular/compiler-cli/src/version_helpers";
-import {UserService} from "../_services/user.service";
-import {Recipe} from "../_models/recipe";
 import {RecipeService} from "../_services/recipe.service";
 import {AuthService} from "../_services/auth.service";
-type EventTypeOrder = { [key: string]: number };
+import {Favorite} from "../_models/user";
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -15,43 +12,48 @@ type EventTypeOrder = { [key: string]: number };
 export class PlanComponent implements OnInit{
     calendarView: Date = new Date();
     constructor(private calendarService: CalendarService,
-                private userService: UserService,
-                private recipeService: RecipeService) {
+                private recipeService: RecipeService,
+                private authService: AuthService,
+                ) {
     }
-    events:any[] = [];
+    favList:Favorite[] = [];
     favoriteList:number[] = [];
+
+    events:any[] = [];
+
     planList:number[]=[];
     recipeList:any[] = [];
     ngOnInit(){
-        this.calendarView = this.calendarService.getCalendarView();
+        this.calendarService.calendarView$.subscribe(e => {
+            this.calendarView = e;
+            this.setSelectedDayEvents();
+        })
         this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
-        this.userService.getPlan().subscribe(res => {
-            // this.events = res;
-            this.events = [
-                {date: new Date(this.calendarView), id: 4},
-                {date: new Date(this.calendarView), id: 5},
-            ];
-            this.setSelectedDayEvents();
-        });
-        this.userService.getFav().subscribe(res => {
-            // this.favoriteList = res;
-            this.favoriteList = [1,2,3];
-        })
+        this.events = [
+            {date: new Date(this.calendarView), recipeId: 4},
+            {date: new Date(this.calendarView), recipeId: 5},
+        ];
+        this.getFav();
+        this.setSelectedDayEvents();
     }
-    getCalendarView():string{
-        let date = this.calendarService.getCalendarView();
-        if(!this.compareDates(this.calendarView, date)){
-            this.calendarView = date;
-            this.setSelectedDayEvents();
-        }
+    getFav(){
+        this.authService.user$.subscribe(e => {
+            if(e != null)
+                this.authService.getFav(e.id).subscribe(res =>{
+                    this.favList = res.filter((element:any) => element.isDelete == false);
+                    this.favoriteList = this.favList.map(e => e.recipeId);
+                })
+        });
+    }
+    getCalendarView(){
         return this.calendarView.toDateString();
     }
     setSelectedDayEvents(){
         this.planList = this.events.filter(event => {
             return this.compareDates(event.date, this.calendarView);
-        }).map(e => e.id);
+        }).map(e => e.recipeId);
     }
     compareDates(date1: Date, date2: Date): boolean {
         const time1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate()).getTime();
@@ -76,15 +78,35 @@ export class PlanComponent implements OnInit{
         }
     }
     savePlan(){
-        let list = this.events.filter(e => this.compareDates(e.date, this.calendarView)).map(e => e.id);
+        let list = this.events.filter(e => this.compareDates(e.date, this.calendarView)).map(e => e.recipeId);
 
-        let plan = this.planList.filter(item => !list.includes(item));
+        const elementCountMap: Map<number, number> = new Map();
+
+        // Count occurrences of each element in the original array
+        list.forEach((element) => {
+            const count = elementCountMap.get(element) || 0;
+            elementCountMap.set(element, count + 1);
+        });
+
+        let plan:number[] = [];
+        // Compare the occurrences in the new array
+        this.planList.forEach((element) => {
+            const count = elementCountMap.get(element) || 0;
+
+            if (count === 0) {
+                plan.push(element);
+            } else {
+                elementCountMap.set(element, count - 1);
+            }
+        });
+
         for(let id of plan){
                 this.events.push({
                     date: new Date(this.calendarView),
-                    id: id,
+                    recipeId: id,
                 })
         }
+        this.getFav();
     }
     getRecipeName(id: number){
         return this.recipeList.filter(e => id == e.id).map(e => e.title);

@@ -12,10 +12,12 @@ export class CalendarComponent implements OnInit{
     constructor(private calendarService: CalendarService) {}
     ngOnInit() {
         this.buildCalendarDays();
-        this.calendarView = this.calendarService.getCalendarView();
+        this.calendarService.calendarView$.subscribe(e => {
+            this.calendarView = e;
+        });
     }
 
-    getCalendarView():string{
+    getCalendarView(){
         return this.calendarView.toDateString();
     }
 

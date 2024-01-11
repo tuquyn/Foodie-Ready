@@ -13,7 +13,10 @@
                 </mat-card-header>
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
                 <mat-card-actions class="center">
-                    <button mat-button>LIKE</button>
+                    <button *ngIf="(isLoggedIn$ | async) == true; else loading" mat-button (click)="checkLike(item.id)">LIKE</button>
+                    <ng-template #loading>
+                        <button [disabled]="true" mat-button>LIKE</button>
+                    </ng-template>
                     <button [disabled]="true" mat-button>PLAN</button>
                     <button mat-button>ADD TO CART</button>
                 </mat-card-actions>

@@ -60,11 +60,38 @@ export class AuthService {
         this.userSubject.next(null);
     }
 
-    private url_fav = 'http://localhost:5001/api/Favorite/GetWithFilter';
+    private url_fav = 'http://localhost:5001/api/Favorite/';
     private favSubject = new BehaviorSubject<any[]>([]);
     favList$ = this.favSubject.asObservable();
     getFav(id: any){
-        const url = this.url_fav;
+        const url = this.url_fav + 'GetWithFilter';
         return this.http.post<any>(url, id);
     }
+    postFav(e: any){
+        const url = this.url_fav + 'Add';
+        let f = {
+            "isDelete": false,
+            "userId": e.userId,
+            "recipeId": e.recipeId,
+        };
+        return this.http.post<any>(url, f);
+    }
+    putFav(e: any){
+        const url = this.url_fav + 'Update/' + e.id;
+        return this.http.put<any>(url, {
+            "id": e.id,
+            "isDelete": !e.isDelete,
+            "userId": e.userId,
+            "recipeId": e.recipeId
+        });
+    }
+
+    private url_plan = 'http://localhost:5001/api/Plan/';
+    private planSubject = new BehaviorSubject<any>([]);
+    planList$: Observable<any> = this.planSubject.asObservable();
+    getPlan(id: any){
+        const url = this.url_plan + 'GetWithFilter';
+        return this.http.post<any>(url, id);
+    }
+
 }

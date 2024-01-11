@@ -12,6 +12,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./recipe.component.css']
 })
 export class RecipeComponent implements OnInit{
+    isLoggedIn$ = this.authService.isLoggedIn$;
+
     dataSource: Recipe[];
     recipeIdList:any[] = [];
     favList:any[] = [];
@@ -31,9 +33,7 @@ export class RecipeComponent implements OnInit{
                 this.setNewRecipe(e);
             }
         })
-        this.authService.favList$.subscribe(res =>{
-            this.favList = res;
-        })
+        this.getFav();
     }
     setNewRecipe(res: any){
         let e = this.recipeIdList.find((e:any) => e.spoonacularId == res.id);
@@ -68,16 +68,61 @@ export class RecipeComponent implements OnInit{
         return combinedString.slice(0, 70) + (combinedString.length > 70 ? '...': '');
     }
     isIdInList(id: any){
-        return this.favList.includes(id);
+        return this.favList.map(e => e.recipeId).includes(id);
     }
-    successAction(){
-        this._snackBar.open("Like Successfully", "Close", {
+    isIdInLikeList(id: any){
+        return this.favList.filter(e => e.isDelete == false).map(e => e.recipeId).includes(id);
+    }
+    checkLike(id: any){
+        if(this.isIdInList(id)){
+            this.authService.user$.subscribe(e => {
+                if(e!= null){
+                    if(this.isIdInLikeList(id)) this.unlikeAction(); else this.likeAction();
+
+                    let element = this.favList.find(f => f.recipeId == id);
+                    this.authService.putFav({
+                        id: element.id,
+                        userId: element.userId,
+                        isDelete: element.isDelete,
+                        recipeId: element.recipeId,
+                    }).subscribe(response => {
+                        this.getFav();
+                    })
+                }
+            })
+        }else{
+            this.authService.user$.subscribe(e =>
+            {
+                if(e != null)
+                    this.authService.postFav({
+                    userId: e.id,
+                    recipeId: id,
+                }).subscribe( response => {
+                            this.getFav();
+                            this.likeAction();
+                        }
+                    );
+            })
+        }
+    }
+    getFav(){
+        this.authService.user$.subscribe(e => {
+            if(e != null)
+            this.authService.getFav(e.id).subscribe(res =>{
+                this.favList = res;
+            })
+        });
+    }
+    likeAction(){
+        this._snackBar.open("Like Successfully 🍕", "Close", {
+            duration: 1000,
             horizontalPosition: 'end',
             verticalPosition: 'bottom',
         });
     }
-    failAction(){
-        this._snackBar.open("Unlike Successfully", "Close", {
+    unlikeAction(){
+        this._snackBar.open("Unlike Successfully 🍕", "Close", {
+            duration: 1000,
             horizontalPosition: 'end',
             verticalPosition: 'bottom',
         });

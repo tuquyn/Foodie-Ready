@@ -11,8 +11,4 @@ export class CalendarService {
     setCalendarView(calendarView: Date) {
         this.calendarViewSubject.next(calendarView);
     }
-
-    getCalendarView(): Date {
-        return this.calendarViewSubject.value;
-    }
 }
