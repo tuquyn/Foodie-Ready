@@ -13,12 +13,16 @@
                 </mat-card-header>
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
                 <mat-card-actions class="center">
-                    <button *ngIf="(isLoggedIn$ | async) == true; else loading" mat-button (click)="checkLike(item.id)">LIKE</button>
+                    <div *ngIf="(isLoggedIn$ | async) == true; else loading">
+                        <button mat-button (click)="checkLike(item.id)">LIKE</button>
+                        <button mat-button>PLAN</button>
+                        <button mat-button>COMMENT</button>
+                    </div>
                     <ng-template #loading>
                         <button [disabled]="true" mat-button>LIKE</button>
+                        <button [disabled]="true" mat-button>PLAN</button>
+                        <button [disabled]="true" mat-button>COMMENT</button>
                     </ng-template>
-                    <button [disabled]="true" mat-button>PLAN</button>
-                    <button mat-button>ADD TO CART</button>
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>

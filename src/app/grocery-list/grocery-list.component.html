@@ -42,7 +42,7 @@
         <span class="example-list-section">
             <div *ngFor="let item of cartList">
               <mat-checkbox [(ngModel)]="item.selected" [ngModelOptions]="{standalone: true}" (change)="updateSelect()">
-                {{ getRecipeName(item.id) }}
+                {{ getRecipeName(item.recipeId) }}
               </mat-checkbox>
             </div>
         </span>

@@ -6,7 +6,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
     providedIn: 'root',
 })
 export class AuthService {
-    private url = 'http://localhost:5001/api/User';
+    private url = 'http://localhost:5141/api/User';
 
     private isLoggedInSubject = new BehaviorSubject<boolean>(false);
     isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
@@ -25,9 +25,7 @@ export class AuthService {
             })
         );
     }
-    getUser(){
-        return this.user$;
-    }
+
     postUser(e: any){
         const url = this.url + '/Add';
         let f = {
@@ -60,7 +58,7 @@ export class AuthService {
         this.userSubject.next(null);
     }
 
-    private url_fav = 'http://localhost:5001/api/Favorite/';
+    private url_fav = 'http://localhost:5141/api/Favorite/';
     private favSubject = new BehaviorSubject<any[]>([]);
     favList$ = this.favSubject.asObservable();
     getFav(id: any){
@@ -86,12 +84,15 @@ export class AuthService {
         });
     }
 
-    private url_plan = 'http://localhost:5001/api/Plan/';
+    private url_plan = 'http://localhost:5141/api/ScheduledMeal/';
     private planSubject = new BehaviorSubject<any>([]);
     planList$: Observable<any> = this.planSubject.asObservable();
     getPlan(id: any){
         const url = this.url_plan + 'GetWithFilter';
         return this.http.post<any>(url, id);
     }
-
+    postListPlan(e:any[]){
+        const url = this.url_plan + 'AddList';
+        return this.http.post<any>(url, e);
+    }
 }

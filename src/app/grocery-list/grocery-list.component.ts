@@ -37,9 +37,8 @@ export class GroceryListComponent implements OnInit{
         });
     }
     setIngredientList(){
-        let list = this.cartList.filter(element => element.selected === true).map(e => e.id);
+        let list = this.cartList.filter(element => element.selected === true).map(e => e.recipeId);
         this.ingredientList = [];
-
         for(let id of list)
         {
             let listIngredient = this.recipeList.filter(e => e.id == id).map(e => e.extendedIngredients)[0];
@@ -64,7 +63,7 @@ export class GroceryListComponent implements OnInit{
         if (this.cartList == null) {
             return false;
         }
-        return this.cartList.filter(t => t.selected).length > 0 && !this.allComplete;
+        return this.cartList.filter(t => t.selected == true).length > 0 && !this.allComplete;
     }
     setAll(completed: boolean){
         this.allComplete = completed;
@@ -82,6 +81,6 @@ export class GroceryListComponent implements OnInit{
         this.dataSource = new MatTableDataSource(this.ingredientList)
     }
     getRecipeName(id: number){
-        return this.recipeList.filter(e => id == e.id).map(e => e.title);
+        return this.recipeList.filter(e => id == e.id).map(e => e.title)[0];
     }
 }

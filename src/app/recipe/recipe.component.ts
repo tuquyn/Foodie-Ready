@@ -25,9 +25,6 @@ export class RecipeComponent implements OnInit{
         this.dataSource= [];
     }
     ngOnInit(){
-        this.recipeService.recipeList$.subscribe(res => {
-            this.recipeIdList = res;
-        })
         this.recipeService.recipeListInfo$.subscribe(res =>{
             for (let e of res) {
                 this.setNewRecipe(e);
@@ -36,9 +33,8 @@ export class RecipeComponent implements OnInit{
         this.getFav();
     }
     setNewRecipe(res: any){
-        let e = this.recipeIdList.find((e:any) => e.spoonacularId == res.id);
         let newRecipe: Recipe = {
-            id: e?.id || res.id || null,
+            id: res.id || null,
             name: res.title || '',
             description: res.summary || '',
             cookingTime: res.cookingMinutes || 0,

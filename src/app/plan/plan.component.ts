@@ -31,20 +31,21 @@ export class PlanComponent implements OnInit{
         this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
-        this.events = [
-            {date: new Date(this.calendarView), recipeId: 4},
-            {date: new Date(this.calendarView), recipeId: 5},
-        ];
         this.getFav();
-        this.setSelectedDayEvents();
     }
     getFav(){
         this.authService.user$.subscribe(e => {
-            if(e != null)
+            if(e != null){
                 this.authService.getFav(e.id).subscribe(res =>{
                     this.favList = res.filter((element:any) => element.isDelete == false);
                     this.favoriteList = this.favList.map(e => e.recipeId);
                 })
+                this.authService.getPlan(e.id).subscribe(res => {
+                    this.events = res;
+                    this.events.forEach(t => t.date = new Date(t.date));
+                    this.setSelectedDayEvents();
+                })
+            }
         });
     }
     getCalendarView(){
@@ -99,13 +100,27 @@ export class PlanComponent implements OnInit{
                 elementCountMap.set(element, count - 1);
             }
         });
-
+        let addList:any[] = [];
         for(let id of plan){
-                this.events.push({
-                    date: new Date(this.calendarView),
+                addList.push({
+                    date: this.calendarView.toISOString(),
                     recipeId: id,
                 })
         }
+        this.authService.user$.subscribe(e =>
+        {
+            if(e != null){
+                addList.forEach(t => t.userId = e.id);
+                this.authService.postListPlan(addList).subscribe( (response:any) => {
+                    this.authService.getPlan(e.id).subscribe(res => {
+                        this.events = res;
+                        this.events.forEach(t => t.date = new Date(t.date));
+                        this.setSelectedDayEvents();
+                    })
+                    }
+                );
+            }
+        })
         this.getFav();
     }
     getRecipeName(id: number){

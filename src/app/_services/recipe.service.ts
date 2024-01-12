@@ -6,7 +6,7 @@ import {Recipe} from "../_models/recipe";
     providedIn: 'root'
 })
 export class RecipeService {
-    private url = 'http://localhost:5001/api/Recipe';
+    private url = 'http://localhost:5141/api/Recipe';
     private url2 = 'https://api.npoint.io/449f632a819956d63313';
 
     private recipeListSubject = new BehaviorSubject<any>([]);
