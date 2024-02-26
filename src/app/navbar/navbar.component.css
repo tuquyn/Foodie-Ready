@@ -13,7 +13,7 @@
     margin-right: 10px;
 }
 .header{
-    background: url("https://cdn.stocksnap.io/img-thumbs/960w/colorful-bokeh_FSOBBNPKKZ.jpg") center/cover;
+    background: linear-gradient(to bottom, #56A3F0, #6752EB);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     height: 60px;
     margin-bottom: 1px;
