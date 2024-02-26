@@ -17,7 +17,7 @@
 
 
 mat-calendar{
-    background: linear-gradient(to bottom, #ADD8E6, #7070ff); /* Light blue to dark blue */
+    background: linear-gradient(to bottom, #6752EB, #9952EB); /* Light blue to dark blue */
 }
 .custom-button {
     display: inline-block;

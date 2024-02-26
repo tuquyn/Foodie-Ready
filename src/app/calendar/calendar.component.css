@@ -5,8 +5,7 @@
 
 .calendar-header {
     padding: 5px 5px;
-    background-color: #ADD8E6;
-    border: 1px solid #a5a5a5;
+    background-color: #56A3F0;
 }
 
 .title-month {
@@ -30,7 +29,6 @@ table {
     width: 100.1%;
     table-layout: fixed;
     border-collapse: collapse;
-    border: 1px solid lightgrey;
 }
 
 thead tr {
@@ -48,7 +46,7 @@ thead tr {
     }
 
     .day {
-        color: cornflowerblue;
+        color: #526FEB;
     }
 }
 

@@ -12,8 +12,8 @@ mat-grid-tile{
   text-align: center;
 }
 .box-background{
-    max-width: 300px;
-    max-height: 400px;
+    width: 90%;
+    height: 95%;
     background-color: #f8f8f8;
     border: 1px solid #ccc;
     display: flex;
