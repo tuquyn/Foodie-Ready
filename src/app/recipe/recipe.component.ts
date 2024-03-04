@@ -17,6 +17,9 @@ export class RecipeComponent implements OnInit{
     dataSource: Recipe[];
     recipeIdList:any[] = [];
     favList:any[] = [];
+    color = "";
+    shapeClass: string = 'square';
+
     constructor(private recipeService: RecipeService,
                 public dialog: MatDialog,
                 private _snackBar: MatSnackBar,
@@ -122,5 +125,9 @@ export class RecipeComponent implements OnInit{
             horizontalPosition: 'end',
             verticalPosition: 'bottom',
         });
+    }
+
+    changeShape(shape: string) {
+        this.shapeClass = shape;
     }
 }

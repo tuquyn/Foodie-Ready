@@ -28,6 +28,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
+import {MatSelectModule} from '@angular/material/select';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
@@ -105,6 +107,8 @@ const routes: Routes = [
         MatMenuModule,
         MatPaginatorModule,
         MatSortModule,
+        MatSelectModule,
+        ColorPickerModule,
         DragDropModule,
     ],
   providers: [],
