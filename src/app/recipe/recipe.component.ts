@@ -129,5 +129,10 @@ export class RecipeComponent implements OnInit{
 
     changeShape(shape: string) {
         this.shapeClass = shape;
+        this.color = "white";
+    }
+
+    changeColor(color: string){
+        this.color = color;
     }
 }

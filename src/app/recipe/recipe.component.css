@@ -37,15 +37,25 @@ mat-grid-tile{
     border-radius: 0;
 }
 
-.circle{
-    border-radius: 50%;
-
-}
-
-.triangle{
-    clip-path: polygon(50% 0, 100% 100%, 0 100%);
-}
-
 .squircle{
-    clip-path: inset(20px 20px 50px round 15px);
+    clip-path: inset(2px 2px 2px round 10px);
+}
+.red{
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+}
+.blue{
+    background: rgba(0, 0, 255, 0.8);
+    color: white;
+}
+.green{
+    background: rgba(0, 255, 0, 0.8);
+    color: white;
+}
+.black{
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+.white{
+    background: rgba(255, 255, 255, 0.8);
 }
