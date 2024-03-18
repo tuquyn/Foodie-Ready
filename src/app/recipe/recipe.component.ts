@@ -5,6 +5,11 @@ import {RecipeDialogComponent} from "../recipe-dialog/recipe-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../_services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FormControl} from "@angular/forms";
+import {MatChip} from "@angular/material/chips";
+import _default from "chart.js/dist/core/core.interaction";
+import index = _default.modes.index;
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-recipe',
@@ -15,23 +20,30 @@ export class RecipeComponent implements OnInit{
     isLoggedIn$ = this.authService.isLoggedIn$;
 
     dataSource: Recipe[];
+    dataSourceFilter: Recipe[];
     recipeIdList:any[] = [];
     favList:any[] = [];
     color = "";
     shapeClass: string = 'square';
-
+    filter: string[] = [];
+    filter2: string[] = [];
+    selectedOptions: string[] = [];
+    selectedOptions2: string[] = [];
     constructor(private recipeService: RecipeService,
                 public dialog: MatDialog,
                 private _snackBar: MatSnackBar,
                 private authService: AuthService,
                 ) {
-        this.dataSource= [];
+        this.dataSource = [];
+        this.dataSourceFilter = [];
     }
     ngOnInit(){
         this.recipeService.recipeListInfo$.subscribe(res =>{
             for (let e of res) {
                 this.setNewRecipe(e);
             }
+            this.dataSourceFilter = this.dataSource;
+            this.getOptions();
         })
         this.getFav();
     }
@@ -51,6 +63,8 @@ export class RecipeComponent implements OnInit{
             caloricBreakdown: res.nutrition.caloricBreakdown,
             dishTypes: res.dishTypes,
         }
+        this.filter = this.filter.concat(newRecipe.dishTypes);
+        this.filter2 = this.filter2.concat(newRecipe.ingredient.map(e => e['aisle']));
         this.dataSource.push(newRecipe);
     }
     openDialog(item: Recipe){
@@ -64,7 +78,7 @@ export class RecipeComponent implements OnInit{
     }
     transform(item : string[]): string {
         let combinedString = item.join(', ');
-        return combinedString.slice(0, 70) + (combinedString.length > 70 ? '...': '');
+        return combinedString.slice(0, 30) + (combinedString.length > 30 ? '...': '');
     }
     isIdInList(id: any){
         return this.favList.map(e => e.recipeId).includes(id);
@@ -134,5 +148,19 @@ export class RecipeComponent implements OnInit{
 
     changeColor(color: string){
         this.color = color;
+    }
+    getOptions(){
+        this.filter = this.filter.filter((value, index, self) => self.indexOf(value) === index);
+        this.filter2 = this.filter2.filter((value, index, self) => self.indexOf(value) === index);
+    }
+    getFilter() {
+        if(this.selectedOptions.length == 0) this.selectedOptions = this.filter;
+        if(this.selectedOptions2.length == 0) this.selectedOptions2 = this.filter2;
+        this.dataSourceFilter = this.dataSource.filter(item => {
+            return this.selectedOptions.some(filter => {
+                return item.dishTypes.includes(filter);
+            }) &&
+                this.selectedOptions2.some(filter => item.ingredient.map(e => e['aisle']).includes(filter));
+        });
     }
 }

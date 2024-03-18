@@ -39,6 +39,7 @@ export class RecipeDialogComponent implements OnInit {
     }
     ngOnInit() {
         this.recipe = this.data;
+        console.log(this.recipe)
         if(this.recipe?.caloricBreakdown){
             this.chartOptions.data[0].dataPoints[0].y = this.recipe?.caloricBreakdown.percentCarbs;
             this.chartOptions.data[0].dataPoints[1].y = this.recipe?.caloricBreakdown.percentFat;

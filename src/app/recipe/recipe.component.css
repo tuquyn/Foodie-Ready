@@ -29,33 +29,36 @@ mat-grid-tile{
     justify-content: center;
     align-items: center
 }
-.colorPicker{
-    width: 20px;
-}
 
 .square{
     border-radius: 0;
 }
 
 .squircle{
-    clip-path: inset(2px 2px 2px round 10px);
+    clip-path: inset(3px 3px 3px round 15px);
 }
 .red{
-    background: rgba(255, 0, 0, 0.8);
-    color: white;
+    /*background: rgba(255, 0, 0, 0.6);*/
+    background: #FF9E9E;
+    color: #080808;
 }
 .blue{
-    background: rgba(0, 0, 255, 0.8);
-    color: white;
+    /*background: rgba(0, 0, 255, 0.6);*/
+    background: #7ACCFF;
+    color: #151414;
 }
 .green{
-    background: rgba(0, 255, 0, 0.8);
-    color: white;
+    /*background: rgba(0, 255, 0, 0.6);*/
+    background: #37E65A;
+    color: #2D0042;
 }
 .black{
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
+    /*background: rgba(0, 0, 0, 0.6);*/
+    background: #3D3D3D;
+    color: #FFFFFF;
 }
 .white{
-    background: rgba(255, 255, 255, 0.8);
+    /*background: rgba(255, 255, 255, 0.6);*/
+    background: #FFFFFF;
+    color: #553434;
 }

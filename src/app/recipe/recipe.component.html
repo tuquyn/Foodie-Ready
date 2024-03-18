@@ -22,16 +22,28 @@
                 <mat-option value="squircle">Option 2</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions">
+            <mat-chip-option *ngFor="let option of filter" [value]="option">
+                {{option}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+        <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions2">
+            <mat-chip-option *ngFor="let option of filter2" [value]="option" color="accent">
+                {{option}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+        <button mat-raised-button color="primary" (click)="getFilter()">Search</button>
+        <div>{{dataSourceFilter.length}}</div>
     </div>
     <mat-grid-list cols="4">
-        <mat-grid-tile *ngFor="let item of dataSource">
+        <mat-grid-tile *ngFor="let item of dataSourceFilter">
             <mat-card  class="box-background" [ngClass]="shapeClass" [ngClass]="color">
                 <mat-card-header>
-                    <mat-card-title><b>{{item.name}}</b></mat-card-title>
-                    <mat-card-subtitle>{{transform(item.dishTypes)}}</mat-card-subtitle>
+                    <mat-card-title [ngClass]="color"><b>{{item.name}}</b></mat-card-title>
+<!--                    <mat-card-subtitle [ngClass]="color">{{transform(item.dishTypes)}}</mat-card-subtitle>-->
                 </mat-card-header>
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
-                <mat-card-actions class="center">
+                <mat-card-actions class="center" [ngClass]="color">
                     <div *ngIf="(isLoggedIn$ | async) == true; else loading">
                         <button mat-button (click)="checkLike(item.id)">LIKE</button>
                         <button mat-button>PLAN</button>
