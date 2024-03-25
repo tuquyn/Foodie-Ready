@@ -13,7 +13,6 @@
 }
 
 .example-large-box {
-    height: 300px;
     width: 300px;
 }
 button {
@@ -122,7 +121,9 @@ th.mat-column-position, td.mat-column-position {
 }
 .bottomButton {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+    float: right;
 }
 .bg{
     background-color: #f8f8f8;
@@ -130,4 +131,11 @@ th.mat-column-position, td.mat-column-position {
 }
 .subtitle{
     display: flex;
+}
+.invisible{
+    visibility: hidden;
+    float: right;
+}
+.title{
+    line-height: 1.5;
 }

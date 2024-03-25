@@ -12,7 +12,7 @@
         <span [routerLink]="'/account'" class="side-right">Log In</span>
     </div>
       <ng-template #menuOption>
-          <button mat-flat-button color="basic" [matMenuTriggerFor]="users">Welcome {{(user$ | async)?.name}}</button>
+          <button mat-flat-button color='primary' [matMenuTriggerFor]="users">Welcome {{(user$ | async)?.name}}</button>
           <mat-menu #users="matMenu">
               <button mat-menu-item (click)="redirectToUserPage()">My Account</button>
               <button mat-menu-item (click)="logout()">Sign Out</button>

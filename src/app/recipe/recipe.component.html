@@ -1,60 +1,69 @@
 <div class="container">
 <app-navbar></app-navbar>
-<app-poster></app-poster>
+<!--<app-poster></app-poster>-->
     <div class="title">
-        <h2 class="center">
-            Explore Now!
-        </h2>
-        <mat-form-field>
-            <mat-label>Select color</mat-label>
-            <mat-select (selectionChange)="changeColor($event.value)">
-                <mat-option value="white">White</mat-option>
-                <mat-option value="black">Black</mat-option>
-                <mat-option value="red">Red</mat-option>
-                <mat-option value="green">Green</mat-option>
-                <mat-option value="blue">Blue</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Select shape</mat-label>
-            <mat-select (selectionChange)="changeShape($event.value)">
-                <mat-option value="square">Option 1</mat-option>
-                <mat-option value="squircle">Option 2</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions">
-            <mat-chip-option *ngFor="let option of filter" [value]="option">
-                {{option}}
-            </mat-chip-option>
-        </mat-chip-listbox>
-        <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions2">
-            <mat-chip-option *ngFor="let option of filter2" [value]="option" color="accent">
-                {{option}}
-            </mat-chip-option>
-        </mat-chip-listbox>
-        <button mat-raised-button color="primary" (click)="getFilter()">Search</button>
-        <div>{{dataSourceFilter.length}}</div>
+        <h1 class="center">
+            Recipe inspiration
+            <mat-icon (click)="search = !search">search</mat-icon>
+        </h1>
+        <div *ngIf="user != null && user['is_admin'] == true">
+            <mat-form-field>
+                <mat-label>Select color</mat-label>
+                <mat-select (selectionChange)="changeColor($event.value)">
+                    <mat-option value="white">White</mat-option>
+                    <mat-option value="black">Black</mat-option>
+<!--                    <mat-option value="red">Red</mat-option>-->
+<!--                    <mat-option value="green">Green</mat-option>-->
+<!--                    <mat-option value="blue">Blue</mat-option>-->
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select shape</mat-label>
+                <mat-select (selectionChange)="changeShape($event.value)">
+                    <mat-option value="square">Option 1</mat-option>
+                    <mat-option value="squircle">Option 2</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-card class="search-box" *ngIf="search;">
+            <mat-card-header>
+                <mat-card-title>Smart search</mat-card-title>
+                <mat-card-subtitle>Found {{dataSourceFilter.length}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>Types: </mat-card-content>
+            <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions">
+                <mat-chip-option *ngFor="let option of filter" [value]="option">
+                    {{option}}
+                </mat-chip-option>
+            </mat-chip-listbox>
+            <mat-card-content>Ingredients: </mat-card-content>
+            <mat-chip-listbox aria-label="Fish selection" selectable multiple [(ngModel)]="selectedOptions2">
+                <mat-chip-option *ngFor="let option of filter2" [value]="option" color="accent">
+                    {{option}}
+                </mat-chip-option>
+            </mat-chip-listbox>
+            <mat-divider></mat-divider>
+            <mat-card-content>More: </mat-card-content>
+            <mat-card-actions>
+                <button [disabled]="none" mat-stroked-button color="primary" (click)="selectQuickly()">All</button>
+                <button [disabled]="all" mat-stroked-button color="warn" (click)="selectQuickly()">None</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                <button mat-raised-button color="primary" (click)="getFilter()" class="button-end">Search</button>
+                <button mat-raised-button color="warn" (click)="search = !search" class="button-end">Cancel</button>
+            </mat-card-footer>
+        </mat-card>
     </div>
     <mat-grid-list cols="4">
         <mat-grid-tile *ngFor="let item of dataSourceFilter">
-            <mat-card  class="box-background" [ngClass]="shapeClass" [ngClass]="color">
+            <mat-card  class="box-background" [ngStyle]="styles">
                 <mat-card-header>
-                    <mat-card-title [ngClass]="color"><b>{{item.name}}</b></mat-card-title>
+                    <mat-card-title class="name"><b>{{item.name}}</b></mat-card-title>
 <!--                    <mat-card-subtitle [ngClass]="color">{{transform(item.dishTypes)}}</mat-card-subtitle>-->
                 </mat-card-header>
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
-                <mat-card-actions class="center" [ngClass]="color">
-                    <div *ngIf="(isLoggedIn$ | async) == true; else loading">
-                        <button mat-button (click)="checkLike(item.id)">LIKE</button>
-                        <button mat-button>PLAN</button>
-                        <button mat-button>COMMENT</button>
-                    </div>
-                    <ng-template #loading>
-                        <button [disabled]="true" mat-button>LIKE</button>
-                        <button [disabled]="true" mat-button>PLAN</button>
-                        <button [disabled]="true" mat-button>COMMENT</button>
-                    </ng-template>
-                </mat-card-actions>
+                <mat-card-content></mat-card-content>
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>

@@ -48,6 +48,7 @@ import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
 import { UserComponent } from './account/user/user.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -112,6 +113,7 @@ const routes: Routes = [
         MatChipsModule,
         ColorPickerModule,
         DragDropModule,
+        MatProgressBarModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

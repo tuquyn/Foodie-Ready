@@ -11,6 +11,8 @@ mat-grid-tile{
 }
 .center{
   text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 .box-background{
     width: 90%;
@@ -61,4 +63,16 @@ mat-grid-tile{
     /*background: rgba(255, 255, 255, 0.6);*/
     background: #FFFFFF;
     color: #553434;
+}
+.search-box{
+    width: 90%;
+    background: #d0cdcd;
+    padding: 5px;
+    margin: 5px;
+}
+.button-end{
+    float: right;
+}
+.name{
+    font-size: 20px;
 }

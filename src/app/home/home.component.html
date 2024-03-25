@@ -1,11 +1,16 @@
 <app-navbar></app-navbar>
 <div class="container">
-
-    <div *ngIf="isLoggedIn$ | async; else notLoggedIn" class="centered-text">
-        <div class="text">Welcome back!</div>
+    <div class="context">
+<!--        Your solution for hassle-free meal prep! Streamline planning, shopping, and cooking with ease. Take control of your diet, optimize nutrition, and reduce waste. Simplify mealtime and embrace healthier eating habits with our app.    -->
+        <div *ngIf="isLoggedIn$ | async; else notLoggedIn" class="centered-text">
+            <div class="text">Welcome back!</div>
+        </div>
+        <ng-template #notLoggedIn>
+            <div class="text">Welcome!</div>
+        </ng-template>
+        <div class="script">
+            Your solution for hassle-free meal prep! Streamline planning, shopping, and cooking with ease. Take control of your diet, optimize nutrition, and reduce waste. Simplify mealtime and embrace healthier eating habits with our app.
+        </div>
     </div>
-    <ng-template #notLoggedIn>
-        <div class="text">Welcome!</div>
-    </ng-template>
 </div>
 <app-footer></app-footer>

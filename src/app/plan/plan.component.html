@@ -8,7 +8,8 @@
         <p>{{getCalendarView()}}</p>
         <div cdkDropListGroup>
             <div class="container">
-                <h2>Plan Table</h2>
+                <h2>Plan Table         <button (click)="savePlan()" class="custom-button save">Add</button>
+                </h2>
 
                 <div
                     cdkDropList
@@ -32,7 +33,6 @@
                 </div>
             </div>
         </div>
-        <button (click)="savePlan()" class="custom-button save">Save</button>
     </div>
 </div>
 <app-footer></app-footer>

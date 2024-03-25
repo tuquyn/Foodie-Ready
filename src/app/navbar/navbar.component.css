@@ -6,6 +6,8 @@
 }
 .side-right:hover{
   cursor: pointer;
+    justify-content: center;
+    align-items: center;
 }
 .navbar-icon {
     width: 30px;
