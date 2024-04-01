@@ -27,11 +27,4 @@ export class NavbarComponent{
             this.router.navigate(['/home']);
         }, 2000);
     }
-    openBottomSheet(){
-        this.isLoggedIn$.subscribe(e => {
-            if(!e){
-                this._bottomSheet.open(LoginSheetComponent);
-            }
-        });
-    }
 }

@@ -7,8 +7,9 @@
 }
 .centered-text{
     text-align: center;
-    border: 10px solid #52CEEB;
+    /*border: 10px solid #52CEEB;*/
     padding: 10px;
+    width: 100%;
 }
 .text{
     -webkit-text-stroke: 2px black;
@@ -24,12 +25,34 @@
     /*margin-right: 10%;*/
     padding: 5px;
     font-size: 30px;
-    opacity: 40%;
+    opacity: 50%;
     overflow: hidden;
 }
 .script{
-    margin-top: 10%;
-    font-size: 50px;
+    font-size: 40px;
     padding: 10px;
     font-weight: bold;
+}
+.navbar-icon {
+    width: 200px;
+}
+
+.body{
+    display: flex;
+    justify-content: flex-end; /* Align items to the bottom of the container */
+    align-items: center; /* Center items horizontally */
+    border: 1px solid #ccc; /* Just for visualization */
+}
+.left, .right{
+    flex: 1;
+}
+.right{
+    font-weight: bold;
+    text-align: right;
+}
+
+.button-start{
+    width: 100%;
+    height: 10%;
+    font-weight: bolder;
 }

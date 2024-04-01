@@ -12,9 +12,6 @@
                 <mat-select (selectionChange)="changeColor($event.value)">
                     <mat-option value="white">White</mat-option>
                     <mat-option value="black">Black</mat-option>
-<!--                    <mat-option value="red">Red</mat-option>-->
-<!--                    <mat-option value="green">Green</mat-option>-->
-<!--                    <mat-option value="blue">Blue</mat-option>-->
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
@@ -54,6 +51,7 @@
                 <button mat-raised-button color="warn" (click)="search = !search" class="button-end">Cancel</button>
             </mat-card-footer>
         </mat-card>
+        <mat-spinner color="primary" *ngIf="dataSource.length === 0"></mat-spinner>
     </div>
     <mat-grid-list cols="4">
         <mat-grid-tile *ngFor="let item of dataSourceFilter">

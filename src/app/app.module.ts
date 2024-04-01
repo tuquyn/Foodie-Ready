@@ -32,6 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -48,7 +50,6 @@ import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
 import { UserComponent } from './account/user/user.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -114,6 +115,7 @@ const routes: Routes = [
         ColorPickerModule,
         DragDropModule,
         MatProgressBarModule,
+        MatProgressSpinnerModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

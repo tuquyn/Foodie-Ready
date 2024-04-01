@@ -1,30 +1,46 @@
-<div mat-dialog-title class="title"><h1>{{recipe?.name}}</h1></div>
-<button mat-icon-button mat-dialog-close>
+<div class="header">
+    <div mat-dialog-title class="title">
+        <h1>{{recipe?.name}}</h1>
+        <mat-chip-set aria-label="tag">
+            <mat-chip *ngIf="recipe?.preparationTime !== -1">
+                Preparation: {{recipe?.preparationTime}} minutes
+            </mat-chip>
+            <mat-chip *ngIf="recipe?.cookingTime !== -1">
+                Cooking: {{recipe?.cookingTime}} minutes
+            </mat-chip>
+            <mat-chip *ngIf="recipe?.readyTime !== -1">
+                Ready: {{recipe?.readyTime}} minutes
+            </mat-chip>
+            <mat-chip>
+                Servings: {{recipe?.servings}}
+            </mat-chip>
+        </mat-chip-set>
+    </div>
+    <img class="image-container" *ngIf="recipe?.image" [src]="recipe?.image" alt="{{recipe?.name}}">
+</div>
+<button mat-flat-button color="primary" mat-dialog-close>
     <span class="material-icons">
     chevron_left
     </span>
+    Back
 </button>
 
 <mat-tab-group dynamicHeight>
     <mat-tab label="Overview">
         <div class="tabs">
             <div class="example-large-box">
-                <img class="image-container" *ngIf="recipe?.image" [src]="recipe?.image" alt="{{recipe?.name}}">
-                <p class="red-container" *ngIf="recipe?.preparationTime !== -1">Prepare: {{recipe?.preparationTime}} minutes</p>
-                <p class="blue-container" *ngIf="recipe?.cookingTime !== -1">Cooking: {{recipe?.cookingTime}} minutes</p>
-                <p class="green-container" *ngIf="recipe?.readyTime !== -1">Total: {{recipe?.readyTime}} minutes</p>
-                <p class="yellow-container">Servings: {{recipe?.servings}}</p>
-<!--                <p class="pink-container" [mat-dialog-close]="data"-->
-<!--                        cdkFocusInitial>Comment</p>-->
-                <div *ngIf="showTable">
-                    <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'150px'}"></canvasjs-chart>
-                </div>
+                <h3>Description:</h3>
+                <p [innerHtml]="recipe?.description"></p>
             </div>
             <div class="content">
-                <h2>Description:</h2>
-                <p [innerHtml]="recipe?.description"></p>
-                <h2 (click)="toggleTable()">Nutrition:
-                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M344 0H488c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32-32c-9.4-9.4-9.4-24.6 0-33.9l87-87L327 41c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512H24c-13.3 0-24-10.7-24-24V344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8z"/></svg>                </h2>
+                <h3 (click)="toggleTable()">Nutrition:
+                    <svg *ngIf="!showTable;else svg2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M344 0H488c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32-32c-9.4-9.4-9.4-24.6 0-33.9l87-87L327 41c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512H24c-13.3 0-24-10.7-24-24V344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8z"/></svg>                </h3>
+                    <ng-template #svg2>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M439 7c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H296c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39L439 7zM72 272H216c13.3 0 24 10.7 24 24V440c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39L73 505c-9.4 9.4-24.6 9.4-33.9 0L7 473c-9.4-9.4-9.4-24.6 0-33.9l87-87L55 313c-6.9-6.9-8.9-17.2-5.2-26.2s12.5-14.8 22.2-14.8z"/></svg>
+                    </ng-template>
+                <div>
+                    <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'150px'}"></canvasjs-chart>
+                </div>
                 <div class="mat-elevation-z8 nutri-table" *ngIf="showTable">
                     <table mat-table [dataSource]="recipe?.nutrition">
                         <ng-container matColumnDef="Name">
@@ -51,20 +67,25 @@
     </mat-tab>
     <mat-tab label="Step by step">
         <div class="tabs bg">
-            <div class="example-small-box">
-                <img class="image-small-container" *ngIf="recipe?.image" [src]="recipe?.image" alt="{{recipe?.name}}">
-            </div>
             <div>
-                <h2>
+                <h3>
                     Ingredient:
-                </h2>
+                </h3>
                 <ul>
-                    <li *ngFor="let item of recipe?.ingredient">{{ item.original }}</li>
+                    <li *ngFor="let item of recipe?.ingredient">
+                        <mat-checkbox color="warn">
+                            <div [innerHTML]="item.original"></div>
+                        </mat-checkbox>
+                    </li>
                 </ul>
 
-                <h2>Instruction</h2>
+                <h3>Instruction:</h3>
                 <ol>
-                    <li *ngFor="let item of recipe?.instruction" [innerHTML]="item.step"></li>
+                    <li *ngFor="let item of recipe?.instruction">
+                        <mat-checkbox color="primary">
+                            <div [innerHTML]="item.step"></div>
+                        </mat-checkbox>
+                    </li>
                 </ol>
             </div>
         </div>

@@ -78,54 +78,12 @@ export class RecipeComponent implements OnInit{
     }
     openDialog(item: Recipe){
         let dialogRef = this.dialog.open(RecipeDialogComponent, {
-            width: '800px',
-            height: '800px',
+            width: '850px',
+            height: '850px',
             data: item,
         });
         dialogRef.afterClosed().subscribe(result => {
         });
-    }
-    transform(item : string[]): string {
-        let combinedString = item.join(', ');
-        return combinedString.slice(0, 30) + (combinedString.length > 30 ? '...': '');
-    }
-    isIdInList(id: any){
-        return this.favList.map(e => e.recipeId).includes(id);
-    }
-    isIdInLikeList(id: any){
-        return this.favList.filter(e => e.isDelete == false).map(e => e.recipeId).includes(id);
-    }
-    checkLike(id: any){
-        if(this.isIdInList(id)){
-            this.authService.user$.subscribe(e => {
-                if(e!= null){
-                    if(this.isIdInLikeList(id)) this.unlikeAction(); else this.likeAction();
-
-                    let element = this.favList.find(f => f.recipeId == id);
-                    this.authService.putFav({
-                        id: element.id,
-                        userId: element.userId,
-                        isDelete: element.isDelete,
-                        recipeId: element.recipeId,
-                    }).subscribe(response => {
-                        this.getFav();
-                    })
-                }
-            })
-        }else{
-            this.authService.user$.subscribe(e =>
-            {
-                if(e != null)
-                    this.authService.postFav({
-                    userId: e.id,
-                    recipeId: id,
-                }).subscribe( response => {
-                            this.getFav();
-                            this.likeAction();
-                        }
-                    );
-            })
-        }
     }
     getFav(){
         this.authService.user$.subscribe(e => {
@@ -133,20 +91,6 @@ export class RecipeComponent implements OnInit{
             this.authService.getFav(e.id).subscribe(res =>{
                 this.favList = res;
             })
-        });
-    }
-    likeAction(){
-        this._snackBar.open("Like Successfully 🍕", "Close", {
-            duration: 1000,
-            horizontalPosition: 'end',
-            verticalPosition: 'bottom',
-        });
-    }
-    unlikeAction(){
-        this._snackBar.open("Unlike Successfully 🍕", "Close", {
-            duration: 1000,
-            horizontalPosition: 'end',
-            verticalPosition: 'bottom',
         });
     }
 

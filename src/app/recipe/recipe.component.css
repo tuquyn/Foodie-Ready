@@ -76,3 +76,73 @@ mat-grid-tile{
 .name{
     font-size: 20px;
 }
+
+.shape1{
+    --mask:
+        radial-gradient(13px at 50% 13px,#000 99%,#0000 101%) calc(50% - 26px) 0/52px 51% repeat-x,
+        radial-gradient(13px at 50% 0px,#0000 99%,#000 101%) 50% 13px/52px calc(51% - 13px) repeat-x,
+        radial-gradient(13px at 50% calc(100% - 13px),#000 99%,#0000 101%) 50% 100%/52px 51% repeat-x,
+        radial-gradient(13px at 50% calc(100% + 0px),#0000 99%,#000 101%) calc(50% - 26px) calc(100% - 13px)/52px calc(51% - 13px) repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+.shape2{
+    --s: 20px;    /* size of the frame */
+    --g: 10px;    /* the gap */
+    --c: white;
+
+    padding: calc(var(--g) + var(--s));
+    background:
+        radial-gradient(farthest-side,var(--c) 97%,#0000)
+        0 0/calc(2*var(--s)) calc(2*var(--s)) round;
+    --_m:
+        conic-gradient(from 90deg at calc(2*var(--s)) calc(2*var(--s)),#0000 25%,#000 0)
+        calc(-1*var(--s)) calc(-1*var(--s)),
+        linear-gradient(#000 0 0) cover;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+}
+.shape3{
+    --r: 10px; /* control the radius of the circles */
+    padding: calc(2*var(--r));
+    background:
+        radial-gradient(var(--r),#0000 98%,#fff) round
+        calc(-1.5*var(--r)) calc(-1.5*var(--r)) /calc(3*var(--r)) calc(3*var(--r)),
+        linear-gradient(#fff 0 0)  no-repeat
+        50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r));
+}
+.shape4{
+    --s: 40px;  /* control the size of the wave */
+    --w: 250px; /* preferred image width */
+
+    width: round(var(--w),2*var(--s));
+    aspect-ratio: 1;
+    padding: var(--s);
+    border-radius: calc(1.5*var(--s));
+    background: white; /* the gradient */
+    --R:calc(var(--s)/sqrt(2)) at;
+    --m1:calc(2*var(--s)) calc(var(--s)/2) repeat-x exclude;
+    --m2:var(--s)/calc(51% - var(--s)/2) calc(2*var(--s)) repeat-y;
+    mask:
+        radial-gradient(var(--R) 50% calc(100% + var(--s)/2),#0000 calc(100% - 1px),#000)
+        0 0   /var(--m1),
+        radial-gradient(var(--R) 50% calc(      var(--s)/-2),#0000 calc(100% - 1px),#000)
+        0 100%/var(--m1),
+        radial-gradient(var(--R) 50% calc(100% + var(--s)/2),#000 100%,#0000 calc(100% + 1px))
+        var(--s) calc(100% - var(--s)/2)/var(--m1),
+        radial-gradient(var(--R) 50% calc(      var(--s)/-2),#000 100%,#0000 calc(100% + 1px))
+        var(--s) calc(       var(--s)/2)/var(--m1),
+        radial-gradient(var(--R) calc(100% + var(--s)/2) 50%,#0000 100%,#000 calc(100% + 1px))
+        calc(100% - var(--s)/2) var(--m2),
+        radial-gradient(var(--R) calc(      var(--s)/-2) 50%,#0000 100%,#000 calc(100% + 1px))
+        calc(       var(--s)/2) var(--m2),
+        radial-gradient(var(--R) 50%,#000 calc(100% - 1px),#0000)
+        0 0/calc(2*var(--s)) calc(2*var(--s));
+    clip-path: inset(calc(.3*var(--s)) round calc(var(--s)/sqrt(2)));
+}
+@supports not (opacity:round(1,1)) {
+    img {
+        --n: 3;
+        width: calc(var(--n)*4*var(--s));
+    }
+}

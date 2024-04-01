@@ -4,6 +4,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 import {RecipeService} from "../_services/recipe.service";
 import {AuthService} from "../_services/auth.service";
 import {Favorite} from "../_models/user";
+import {MatBottomSheet} from "@angular/material/bottom-sheet";
+import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component";
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -14,7 +16,9 @@ export class PlanComponent implements OnInit{
     constructor(private calendarService: CalendarService,
                 private recipeService: RecipeService,
                 private authService: AuthService,
+                private _bottomSheet: MatBottomSheet,
                 ) {
+        this._bottomSheet.open(LoginSheetComponent);
     }
     favList:Favorite[] = [];
     favoriteList:number[] = [];

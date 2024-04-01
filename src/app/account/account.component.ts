@@ -52,6 +52,9 @@ export class AccountComponent {
             this.authService.postUser(e).subscribe( response => {
                     this.successAction();
                     this.getData();
+                setTimeout(() => {
+                    this.router.navigate(['/account']);
+                }, 1000);
                 }
             );
         }catch {

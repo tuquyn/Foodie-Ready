@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {RecipeService} from "../_services/recipe.service";
 import {AuthService} from "../_services/auth.service";
+import {MatBottomSheet} from "@angular/material/bottom-sheet";
+import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component";
 
 @Component({
   selector: 'app-grocery-list',
@@ -16,7 +18,10 @@ export class GroceryListComponent implements OnInit{
     displayedColumns: string[] = ['id', 'name', 'quantity', 'unit'];
     dataSource!: MatTableDataSource<any>;
     constructor(private authService: AuthService,
-                private recipeService: RecipeService) {
+                private recipeService: RecipeService,
+                private _bottomSheet: MatBottomSheet,
+    ) {
+        this._bottomSheet.open(LoginSheetComponent);
     }
     ngOnInit(){
         this.recipeService.recipeListInfo$.subscribe(res => {

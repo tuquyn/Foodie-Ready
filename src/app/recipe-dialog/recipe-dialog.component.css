@@ -2,9 +2,9 @@
     display: block;
     align-items: center;
     justify-content: center;
-    margin: 16px;
-    padding: 16px;
-    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    /*border-radius: 8px;*/
 }
 
 .example-small-box {
@@ -13,7 +13,7 @@
 }
 
 .example-large-box {
-    width: 300px;
+    width: 50%;
 }
 button {
     padding: 10px 15px;
@@ -34,10 +34,12 @@ button:hover {
 }
 
 .image-container {
-    max-width: 300px;
+    /*width: 300px;*/
     max-height: 300px;
     overflow: hidden;
     border-radius: 100px;
+    margin-top: 20px;
+    margin-right: 20px;
 }
 .image-small-container {
     max-width: 100px;
@@ -84,6 +86,11 @@ button:hover {
     color: darkblue;
 }
 .content{
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Apply a subtle box shadow */
     background-color: #efefef; /* Set grey background color */
     color: #2c3e50; /* Set text color */
@@ -128,6 +135,8 @@ th.mat-column-position, td.mat-column-position {
 .bg{
     background-color: #f8f8f8;
     border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
 }
 .subtitle{
     display: flex;
@@ -138,4 +147,11 @@ th.mat-column-position, td.mat-column-position {
 }
 .title{
     line-height: 1.5;
+    width: 50%;
+}
+.header{
+    display: flex;
+}
+.custom-label{
+    font-size: 100px; /* Adjust the font size as needed */
 }
