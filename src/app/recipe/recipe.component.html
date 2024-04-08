@@ -4,7 +4,7 @@
     <div class="title">
         <h1 class="center">
             Recipe inspiration
-            <mat-icon (click)="search = !search">search</mat-icon>
+            <mat-icon class="icon" (click)="search = !search">search</mat-icon>
         </h1>
         <div *ngIf="user != null && user['is_admin'] == true">
             <mat-form-field>
@@ -65,5 +65,5 @@
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
-<app-footer></app-footer>
 </div>
+<app-footer></app-footer>

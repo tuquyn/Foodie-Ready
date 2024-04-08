@@ -7,7 +7,7 @@ import {Recipe} from "../_models/recipe";
 })
 export class RecipeService {
     private url = 'http://localhost:5141/api/Recipe';
-    private url2 = 'https://api.npoint.io/449f632a819956d63313';
+    private url2 = 'https://api.npoint.io/75f620a1ca3d0b58ce6b';
 
     private recipeListSubject = new BehaviorSubject<any>([]);
     recipeList$: Observable<any> = this.recipeListSubject.asObservable();

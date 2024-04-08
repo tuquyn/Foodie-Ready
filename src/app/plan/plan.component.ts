@@ -6,6 +6,9 @@ import {AuthService} from "../_services/auth.service";
 import {Favorite} from "../_models/user";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component";
+import {Recipe} from "../_models/recipe";
+import {RecipeDialogComponent} from "../recipe-dialog/recipe-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -15,10 +18,10 @@ export class PlanComponent implements OnInit{
     calendarView: Date = new Date();
     constructor(private calendarService: CalendarService,
                 private recipeService: RecipeService,
+                public dialog: MatDialog,
                 private authService: AuthService,
                 private _bottomSheet: MatBottomSheet,
                 ) {
-        this._bottomSheet.open(LoginSheetComponent);
     }
     favList:Favorite[] = [];
     favoriteList:number[] = [];
@@ -27,6 +30,7 @@ export class PlanComponent implements OnInit{
 
     planList:number[]=[];
     recipeList:any[] = [];
+    nutri = [];
     ngOnInit(){
         this.calendarService.calendarView$.subscribe(e => {
             this.calendarView = e;
@@ -49,6 +53,8 @@ export class PlanComponent implements OnInit{
                     this.events.forEach(t => t.date = new Date(t.date));
                     this.setSelectedDayEvents();
                 })
+            }else{
+                this._bottomSheet.open(LoginSheetComponent);
             }
         });
     }
@@ -129,5 +135,37 @@ export class PlanComponent implements OnInit{
     }
     getRecipeName(id: number){
         return this.recipeList.filter(e => id == e.id).map(e => e.title);
+    }
+    getRecipe(id: number){
+        let res = this.recipeList.filter(e => id == e.id)[0];
+        let item = {
+            id: res.id || null,
+            name: res.title || '',
+            description: res.summary || '',
+            cookingTime: res.cookingMinutes || 0,
+            preparationTime: res.preparationMinutes || 0,
+            readyTime: res.readyInMinutes || 0,
+            instruction: (res.analyzedInstructions && res.analyzedInstructions[0]?.steps) || [],
+            nutrition: res.nutrition.nutrients,
+            ingredient: res.extendedIngredients || [],
+            image: res.image || '',
+            servings: res.servings || 0,
+            caloricBreakdown: res.nutrition.caloricBreakdown,
+            dishTypes: res.dishTypes,
+        }
+        let dialogRef = this.dialog.open(RecipeDialogComponent, {
+            width: '850px',
+            height: '850px',
+            data: item,
+        });
+            dialogRef.afterClosed().subscribe(result => {
+
+            });
+    }
+    getNutrition(){
+        for(let p of this.planList){
+            let res = this.recipeList.find(e => p == e.id).nutrition.nutrients;
+            console.log(res)
+        }
     }
 }

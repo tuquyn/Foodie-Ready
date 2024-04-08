@@ -1,9 +1,13 @@
 <app-navbar></app-navbar>
+<mat-drawer-container [hasBackdrop]="true">
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <p>Calculate the nutrition of plan</p>
+        <button (click)="getNutrition()">click</button>
+    </mat-drawer>
 <div class="calendar-container">
     <mat-card class="demo-inline-calendar-card calendar">
         <app-calendar></app-calendar>
     </mat-card>
-
     <div class="event-table">
         <p>{{getCalendarView()}}</p>
         <div cdkDropListGroup>
@@ -20,24 +24,26 @@
                     class="example-list"
                     cdkDropListSortingDisabled
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of planList" class="example-box" cdkDrag>{{ getRecipeName(item) }}</div>
+                    <div *ngFor="let item of planList" class="example-box" cdkDrag (click)="getRecipe(item)">{{ getRecipeName(item) }}</div>
                 </div>
                 <button (click)="savePlan()" class="custom-button save">Save</button>
-
+                <button type="button" class="custom-button check" (click)="drawer.toggle()">
+                    Check
+                </button>
             </div>
 
             <div class="container">
                 <h2>Saved Table</h2>
-
                 <div
                     cdkDropList
                     [cdkDropListData]="favoriteList"
                     class="example-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of favoriteList" class="example-box" cdkDrag>{{ getRecipeName(item) }}</div>
+                    <div *ngFor="let item of favoriteList" class="example-box" cdkDrag (click)="getRecipe(item)">{{ getRecipeName(item) }}</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</mat-drawer-container>
 <app-footer></app-footer>

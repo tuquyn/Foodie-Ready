@@ -34,6 +34,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -116,6 +117,7 @@ const routes: Routes = [
         DragDropModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
+        MatSidenavModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

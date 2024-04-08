@@ -24,6 +24,7 @@ mat-grid-tile{
 }
 .container{
     background: #e0e0e0;
+    height: 90vh;
 }
 .title{
     display: flex;
@@ -145,4 +146,12 @@ mat-grid-tile{
         --n: 3;
         width: calc(var(--n)*4*var(--s));
     }
+}
+
+.icon{
+    border-radius: 100%;
+    border: 2px solid #000000;
+}
+.icon:hover{
+    cursor: pointer;
 }

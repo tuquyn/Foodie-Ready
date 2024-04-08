@@ -22,7 +22,6 @@ export class RecipeComponent implements OnInit{
 
     dataSource: Recipe[];
     dataSourceFilter: Recipe[];
-    favList:any[] = [];
     color = "";
     shapeClass: string = 'square';
     filter: string[] = [];
@@ -54,7 +53,6 @@ export class RecipeComponent implements OnInit{
         this.authService.user$.subscribe(e => {
             this.user = e;
         })
-        this.getFav();
     }
     setNewRecipe(res: any){
         let newRecipe: Recipe = {
@@ -85,14 +83,7 @@ export class RecipeComponent implements OnInit{
         dialogRef.afterClosed().subscribe(result => {
         });
     }
-    getFav(){
-        this.authService.user$.subscribe(e => {
-            if(e != null)
-            this.authService.getFav(e.id).subscribe(res =>{
-                this.favList = res;
-            })
-        });
-    }
+
 
     changeShape(shape: string) {
         this.shapeClass = shape;

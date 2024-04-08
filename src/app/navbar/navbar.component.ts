@@ -15,7 +15,7 @@ export class NavbarComponent{
 
     constructor(private authService: AuthService,
                 private router: Router,
-                private _bottomSheet: MatBottomSheet,) {}
+                ) {}
     redirectToUserPage() {
         this.user$.subscribe(e => {
             this.router.navigate(['/user', e.name]);

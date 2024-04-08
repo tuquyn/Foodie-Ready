@@ -4,7 +4,7 @@
     margin: 0;
     padding: 20px;
     display: flex;
-    min-height: 54%;
+    height: 80vh;
 }
 .container{
     width: 50%;

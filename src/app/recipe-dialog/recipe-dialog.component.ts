@@ -117,6 +117,13 @@ export class RecipeDialogComponent implements OnInit {
             verticalPosition: 'bottom',
         });
     }
+    planAction(){
+        this._snackBar.open("Plan Successfully 🍕", "Close", {
+            duration: 1000,
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+        });
+    }
     datePickerClosed() {
         if(this.selectedDate != "") {
             var newRecipe = {
@@ -128,7 +135,7 @@ export class RecipeDialogComponent implements OnInit {
                 if(e != null){
                     newRecipe.userId = e.id;
                     this.authService.postPlan(newRecipe).subscribe((response: any) => {
-
+                        this.planAction();
                     })
                 }
             })

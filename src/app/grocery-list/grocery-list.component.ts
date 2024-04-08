@@ -21,7 +21,6 @@ export class GroceryListComponent implements OnInit{
                 private recipeService: RecipeService,
                 private _bottomSheet: MatBottomSheet,
     ) {
-        this._bottomSheet.open(LoginSheetComponent);
     }
     ngOnInit(){
         this.recipeService.recipeListInfo$.subscribe(res => {
@@ -39,6 +38,9 @@ export class GroceryListComponent implements OnInit{
                         item['selected'] = false;
                     });
                 })
+            else {
+                this._bottomSheet.open(LoginSheetComponent);
+            }
         });
     }
     setIngredientList(){
