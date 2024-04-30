@@ -1,24 +1,24 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="context">
-        <div class="centered-text">
+        <div class="left-text">
             <a [routerLink]="'/home'">
                 <img src="/assets/icon.png" alt="Icon" class="navbar-icon">
             </a>
+            <p class="name">Food Planning Website</p>
+            <div class="right">
+                <mat-list>
+                    <mat-list-item>Find recipe? <button mat-flat-button color="primary" [routerLink]="'/recipe'">Click now</button></mat-list-item>
+                    <mat-list-item>Plan now? <button mat-flat-button color="primary" [routerLink]="'/plan'">Click now</button></mat-list-item>
+                    <mat-list-item>Shopping list? <button mat-flat-button color="primary" [routerLink]="'/grocery-list'">Click now</button></mat-list-item>
+                </mat-list>
+            </div>
         </div>
         <div class="body">
             <div class="left script">
                 Your solution for hassle-free meal prep! Streamline planning, shopping, and cooking with ease. Take control of your diet, optimize nutrition, and reduce waste. Simplify mealtime and embrace healthier eating habits with our app.
             </div>
-            <div class="right">
-                <mat-list>
-                    <mat-list-item>Find recipe? <button mat-flat-button color="primary" [routerLink]="'/recipe'">Click now</button></mat-list-item>
-                    <mat-list-item>Make plan? <button mat-flat-button color="primary" [routerLink]="'/plan'">Click now</button></mat-list-item>
-                    <mat-list-item>Create shopping list? <button mat-flat-button color="primary" [routerLink]="'/grocery-list'">Click now</button></mat-list-item>
-                </mat-list>
-            </div>
         </div>
-        <button class="button-start" mat-stroked-button [routerLink]="'/account'">Start</button>
     </div>
 </div>
 <app-footer></app-footer>

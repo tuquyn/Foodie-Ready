@@ -5,11 +5,14 @@
     height: 90vh;
     background: url("https://cdn.stocksnap.io/img-thumbs/960w/noodles-cooking_30DIV2QY3M.jpg") center/cover no-repeat;
 }
-.centered-text{
-    text-align: center;
-    /*border: 10px solid #52CEEB;*/
+.left-text{
+    text-align: left;
     padding: 10px;
     width: 100%;
+    display: flex;
+}
+.name{
+    font-size: 50px;
 }
 .text{
     -webkit-text-stroke: 2px black;
@@ -23,25 +26,28 @@
     width: 90%;
     height: 90%;
     /*margin-right: 10%;*/
-    padding: 5px;
+    padding: 10px;
     font-size: 30px;
-    opacity: 50%;
+    opacity: 40%;
     overflow: hidden;
 }
 .script{
     font-size: 40px;
     padding: 10px;
-    font-weight: bold;
+    font-weight: lighter;
 }
 .navbar-icon {
     width: 200px;
 }
 
 .body{
-    display: flex;
+    bottom: 0;
+    width: 30%;
+    margin-left: 100px;
     justify-content: flex-end; /* Align items to the bottom of the container */
     align-items: center; /* Center items horizontally */
     border: 1px solid #ccc; /* Just for visualization */
+    padding: 20px;
 }
 .left, .right{
     flex: 1;
