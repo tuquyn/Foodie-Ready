@@ -104,12 +104,13 @@ mat-grid-tile{
     mask: var(--_m);
 }
 .shape3{
+    color: white;
     --r: 10px; /* control the radius of the circles */
-    padding: calc(2*var(--r));
+    /*padding: calc(2*var(--r));*/
     background:
-        radial-gradient(var(--r),#0000 98%,#fff) round
+        radial-gradient(var(--r), rgba(255, 255, 255, 0) 98%,#3D3D3D) round
         calc(-1.5*var(--r)) calc(-1.5*var(--r)) /calc(3*var(--r)) calc(3*var(--r)),
-        linear-gradient(#fff 0 0)  no-repeat
+        linear-gradient(#3D3D3D 0 0)  no-repeat
         50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r));
 }
 .shape4{
@@ -154,4 +155,7 @@ mat-grid-tile{
 }
 .icon:hover{
     cursor: pointer;
+}
+.name{
+    display: flex;
 }

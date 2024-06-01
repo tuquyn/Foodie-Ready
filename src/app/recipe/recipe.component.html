@@ -6,6 +6,10 @@
             Recipe inspiration
             <mat-icon class="icon" (click)="search = !search">search</mat-icon>
         </h1>
+        <button mat-raised-button color="primary" (click)="startExperiment = !startExperiment">Start the experiment!</button>
+        <button mat-raised-button color="warn" *ngIf="startExperiment" [disabled]="selectedRecipes.length !== 4" (click)="openTest()">
+            {{ selectedRecipes.length === 4 ? 'Continue' : 'Select 4 recipes' }}
+        </button>
         <div *ngIf="user != null && user['is_admin'] == true">
             <mat-form-field>
                 <mat-label>Select color</mat-label>
@@ -19,6 +23,7 @@
                 <mat-select (selectionChange)="changeShape($event.value)">
                     <mat-option value="square">Option 1</mat-option>
                     <mat-option value="squircle">Option 2</mat-option>
+                    <mat-option value="shape3">Option 3</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -57,7 +62,9 @@
         <mat-grid-tile *ngFor="let item of dataSourceFilter">
             <mat-card  class="box-background" [ngStyle]="styles">
                 <mat-card-header>
-                    <mat-card-title class="name"><b>{{item.name}}</b></mat-card-title>
+                    <mat-card-title class="name"><b>{{item.name}}</b>
+                        <mat-checkbox *ngIf="startExperiment" (change)="onCheckboxChange(item.id)" ></mat-checkbox>
+                    </mat-card-title>
 <!--                    <mat-card-subtitle [ngClass]="color">{{transform(item.dishTypes)}}</mat-card-subtitle>-->
                 </mat-card-header>
                 <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">

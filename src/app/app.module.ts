@@ -51,6 +51,7 @@ import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { LoginSheetComponent } from './account/login-sheet/login-sheet.component';
 import { UserComponent } from './account/user/user.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -78,6 +79,7 @@ const routes: Routes = [
     LoginSheetComponent,
     UserComponent,
     CalendarComponent,
+    TestComponent,
   ],
     imports: [
         HttpClientModule,

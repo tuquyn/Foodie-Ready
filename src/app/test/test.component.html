@@ -1,0 +1,74 @@
+<!--<div class="recipe-image-carousel">-->
+<!--    <mat-card  class="box-background" *ngIf="this.currentImageIndex == 0">-->
+<!--        <mat-card-header>-->
+<!--            <mat-card-title class="name"><b>{{this.recipes[0].name}}</b></mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <img mat-card-image class="img" src="{{this.recipes[0].image}}" alt="" class="center">-->
+<!--        <mat-card-content></mat-card-content>-->
+<!--    </mat-card>-->
+<!--    <mat-card  class="box-background" *ngIf="this.currentImageIndex == 1">-->
+<!--        <mat-card-header>-->
+<!--            <mat-card-title class="name"><b>{{this.recipes[1].name}}</b></mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <img mat-card-image class="img" src="{{this.recipes[1].image}}" alt="" class="center">-->
+<!--        <mat-card-content></mat-card-content>-->
+<!--    </mat-card>-->
+<!--    <mat-card  class="box-background" *ngIf="this.currentImageIndex == 2">-->
+<!--        <mat-card-header>-->
+<!--            <mat-card-title class="name"><b>{{this.recipes[2].name}}</b></mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <img mat-card-image class="img" src="{{this.recipes[2].image}}" alt="" class="center">-->
+<!--        <mat-card-content></mat-card-content>-->
+<!--    </mat-card>-->
+<!--    <mat-card  class="box-background" *ngIf="this.currentImageIndex == 3">-->
+<!--        <mat-card-header>-->
+<!--            <mat-card-title class="name"><b>{{this.recipes[3].name}}</b></mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <img mat-card-image class="img" src="{{this.recipes[3].image}}" alt="" class="center">-->
+<!--        <mat-card-content></mat-card-content>-->
+<!--    </mat-card>-->
+<!--    <button (click)="previousImage()" *ngIf="currentImageIndex > 0">Previous</button>-->
+<!--    <button (click)="nextImage()" *ngIf="currentImageIndex < 3">Next</button>-->
+<!--</div>-->
+<mat-grid-list cols="4">
+    <mat-grid-tile>
+        <mat-card  class="box-background ver1" >
+            <mat-card-header>
+                <mat-card-title class="name"><b>{{this.recipes[0].name | slice:0:20}}</b>
+                </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="img" src="{{this.recipes[0].image}}" alt="" class="center">
+            <mat-card-content></mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card  class="box-background ver1">
+            <mat-card-header>
+                <mat-card-title class="name"><b>{{this.recipes[1].name | slice:0:20}}</b>
+                </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="img" src="{{this.recipes[1].image}}" alt="" class="center">
+            <mat-card-content></mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card  class="box-background ver2 shape3">
+            <mat-card-header>
+                <mat-card-title class="name"><b>{{this.recipes[2].name | slice:0:20}}</b>
+                </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="img" src="{{this.recipes[2].image}}" alt="" class="center">
+            <mat-card-content></mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card  class="box-background ver2 shape3">
+            <mat-card-header>
+                <mat-card-title class="name"><b>{{this.recipes[3].name | slice:0:20}}</b>
+                </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="img" src="{{this.recipes[3].image}}" alt="" class="center">
+            <mat-card-content></mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

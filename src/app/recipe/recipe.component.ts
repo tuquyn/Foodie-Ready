@@ -10,6 +10,7 @@ import {MatChip} from "@angular/material/chips";
 import _default from "chart.js/dist/core/core.interaction";
 import index = _default.modes.index;
 import {filter} from "rxjs";
+import {TestComponent} from "../test/test.component";
 
 @Component({
   selector: 'app-recipe',
@@ -22,7 +23,7 @@ export class RecipeComponent implements OnInit{
 
     dataSource: Recipe[];
     dataSourceFilter: Recipe[];
-    color = "";
+    color = "black";
     shapeClass: string = 'square';
     filter: string[] = [];
     filter2: string[] = [];
@@ -34,6 +35,9 @@ export class RecipeComponent implements OnInit{
     search: boolean = false;
 
     styles = {};
+    selectedRecipes:number[] = [];
+
+    startExperiment = false;
     constructor(private recipeService: RecipeService,
                 public dialog: MatDialog,
                 private _snackBar: MatSnackBar,
@@ -41,6 +45,7 @@ export class RecipeComponent implements OnInit{
                 ) {
         this.dataSource = [];
         this.dataSourceFilter = [];
+        // this.updateStyle();
     }
     ngOnInit(){
         this.recipeService.recipeListInfo$.subscribe(res =>{
@@ -123,10 +128,38 @@ export class RecipeComponent implements OnInit{
     }
 
     updateStyle(){
-        this.styles = {
-            'background-color': this.color == 'white' ? '#FFFFFF' : '#3D3D3D',
-            'color': this.color == 'white' ? '#553434' : '#FFFFFF',
-            'clip-path': this.shapeClass == 'square' ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' : 'inset(3px 3px 3px round 15px)'
+            this.styles = {
+                // '--r': '10px', // Define the radius here
+                // '--color': this.color === 'white' ? '#FFFFFF' : '#3D3D3D', // Define the color here
+                // 'background': this.shapeClass == 'shape3' ?
+                //     `radial-gradient(var(--r), rgba(0, 0, 0, 0) 98%, --color) round
+                //     calc(-1.5*var(--r)) calc(-1.5*var(--r)) /calc(3*var(--r)) calc(3*var(--r)),
+                //     linear-gradient(--color 0 0)  no-repeat
+                //     50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r))`
+                //     : this.color == 'white' ? '#FFFFFF' : '#3D3D3D',
+                'color': this.color == 'white' ? '#553434' : '#FFFFFF',
+                // 'clip-path': this.shapeClass == 'square' ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' :
+                //     this.shapeClass == 'squircle' ?
+                //     'inset(3px 3px 3px round 15px)' :  0
+            }
+    }
+
+    onCheckboxChange(recipeId: any){
+        if(!this.selectedRecipes.includes(recipeId)){
+            this.selectedRecipes.push(recipeId);
+        }else{
+            this.selectedRecipes.splice(recipeId, 1);
         }
+    }
+    openTest(){
+        let newData = this.dataSource.filter(item => {
+            return this.selectedRecipes.includes(item.id);
+        })
+        let dialogRef = this.dialog.open(TestComponent, {
+            width: '850px',
+            data: newData,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
     }
 }

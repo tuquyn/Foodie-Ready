@@ -1,0 +1,41 @@
+.recipe-image-carousel {
+    display: flex;
+    align-items: center;
+}
+
+.recipe-image-carousel img {
+    width: 200px; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures image fills container */
+}
+
+.recipe-image-carousel button {
+    margin: 10px; /* Adjust margins as needed */
+}
+.box-background{
+    width: 90%;
+    height: 95%;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+.ver1{
+    color: #553434;
+    background-color: #FFFFFF;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.ver2{
+    color: #FFFFFF;
+    background-color: #3D3D3D;
+}
+
+.shape3{
+    color: white;
+    --r: 10px; /* control the radius of the circles */
+    /*padding: calc(2*var(--r));*/
+    background:
+        radial-gradient(var(--r), rgba(255, 255, 255, 0) 98%,#3D3D3D) round
+        calc(-1.5*var(--r)) calc(-1.5*var(--r)) /calc(3*var(--r)) calc(3*var(--r)),
+        linear-gradient(#3D3D3D 0 0)  no-repeat
+        50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r));
+}
