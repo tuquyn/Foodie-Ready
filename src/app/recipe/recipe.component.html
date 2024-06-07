@@ -6,10 +6,10 @@
             Recipe inspiration
             <mat-icon class="icon" (click)="search = !search">search</mat-icon>
         </h1>
-        <button mat-raised-button color="primary" (click)="startExperiment = !startExperiment">Start the experiment!</button>
-        <button mat-raised-button color="warn" *ngIf="startExperiment" [disabled]="selectedRecipes.length !== 4" (click)="openTest()">
-            {{ selectedRecipes.length === 4 ? 'Continue' : 'Select 4 recipes' }}
-        </button>
+<!--        <button mat-raised-button color="primary" (click)="startExperiment = !startExperiment">Start the experiment!</button>-->
+<!--        <button mat-raised-button color="warn" *ngIf="startExperiment" [disabled]="selectedRecipes.length !== 4" (click)="openTest()">-->
+<!--            {{ selectedRecipes.length === 4 ? 'Continue' : 'Select 4 recipes' }}-->
+<!--        </button>-->
         <div *ngIf="user != null && user['is_admin'] == true">
             <mat-form-field>
                 <mat-label>Select color</mat-label>
