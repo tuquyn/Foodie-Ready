@@ -42,6 +42,19 @@
                     <div *ngFor="let item of favoriteList" class="example-box" cdkDrag (click)="getRecipe(item)">{{ getRecipeName(item) }}</div>
                 </div>
             </div>
+<!--            <div class="example-listbox-container container">-->
+<!--                <label class="example-listbox-label" id="example-toppings-label">-->
+<!--                    Saved Table-->
+<!--                </label>-->
+<!--                <ul cdkListbox-->
+<!--                    cdkListboxMultiple-->
+<!--                    [(ngModel)]="newPlanList"-->
+<!--                    aria-labelledby="example-toppings-label"-->
+<!--                    class="example-listbox">-->
+<!--                    <li *ngFor="let topping of favoriteList" [cdkOption]="topping" class="example-option">{{topping}}</li>-->
+
+<!--                </ul>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

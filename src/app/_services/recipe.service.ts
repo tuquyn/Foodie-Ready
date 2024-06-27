@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Recipe} from "../_models/recipe";
+import {map} from "rxjs/operators";
 @Injectable({
     providedIn: 'root'
 })
 export class RecipeService {
+    private jsonUrl = 'assets/recipes.json'; // Path to your JSON file
+
     private url = 'http://localhost:5141/api/Recipe';
     private url2 = 'https://api.npoint.io/75f620a1ca3d0b58ce6b';
 
@@ -20,6 +23,19 @@ export class RecipeService {
         this.getRecipeInfo().subscribe(res => {
             this.recipeListInfoSubject.next(res);
         });
+    }
+    getRecipes(): Observable<any> {
+        return this.http.get(this.jsonUrl);
+    }
+
+    addRecipe(newRecipe: any): Observable<any> {
+        return this.getRecipes().pipe(
+            map((recipes: any[]) => {
+                recipes.push(newRecipe);
+                // Simulate writing to a file by returning the updated recipes array
+                return recipes;
+            })
+        );
     }
     getRecipe(){
         const url = this.url + '/GetAll';

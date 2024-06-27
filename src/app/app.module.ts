@@ -52,6 +52,8 @@ import { LoginSheetComponent } from './account/login-sheet/login-sheet.component
 import { UserComponent } from './account/user/user.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { TestComponent } from './test/test.component';
+import {CdkOption} from "@angular/cdk/listbox";
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -80,6 +82,7 @@ const routes: Routes = [
     UserComponent,
     CalendarComponent,
     TestComponent,
+    AddRecipeComponent,
   ],
     imports: [
         HttpClientModule,
@@ -120,6 +123,7 @@ const routes: Routes = [
         MatProgressBarModule,
         MatProgressSpinnerModule,
         MatSidenavModule,
+        CdkOption,
     ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,28 +1,38 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../_services/auth.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {EncryptionService} from "../encryption.service";
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit, OnDestroy{
     hidePsw = true;
     durationInSeconds = 2;
 
     user: any = {username: '', pwd: ''};
     userList:any[] = [];
     isUserValid = false;
+    private subscriptions: Subscription[] = [];
 
     constructor(private _formBuilder: FormBuilder,
                 private _snackBar: MatSnackBar,
                 private authService: AuthService,
                 private router: Router,
+                private encryptionService: EncryptionService
     ) {
+    }
+
+    ngOnInit() {
         this.getData();
+    }
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -36,9 +46,11 @@ export class AccountComponent {
     });
 
     getData(){
-        this.authService.getUserList().subscribe(e => {
+        const sub = this.authService.getUserList().subscribe(e => {
             this.userList = e;
         });
+        this.subscriptions.push(sub);
+
         this.isUserValid = false;
     }
     signUp(){
@@ -46,17 +58,19 @@ export class AccountComponent {
             let e = {
                 name: this.firstFormGroup.controls['firstCtrl'].value,
                 username: this.secondFormGroup.controls['secondCtrl'].value,
-                pwd: this.thirdFormGroup.controls['thirdCtrl'].value,
+                pwd: this.encryptionService.encrypt(<string>this.thirdFormGroup.controls['thirdCtrl'].value),
             };
 
-            this.authService.postUser(e).subscribe( response => {
+            const sub = this.authService.postUser(e).subscribe( response => {
                     this.successAction();
                     this.getData();
-                setTimeout(() => {
-                    this.router.navigate(['/account']);
-                }, 1000);
+                // setTimeout(() => {
+                //     this.router.navigate(['/account']);
+                // }, 1000);
                 }
             );
+            this.subscriptions.push(sub);
+
         }catch {
             this.failAction();
         }
@@ -67,9 +81,9 @@ export class AccountComponent {
             let index = this.userList.findIndex(e => e.username == this.user.username);
             this.authService.signIn(this.userList[index]);
             this.successAction();
-            setTimeout(() => {
-                this.router.navigate(['/home']);
-            }, 1000);
+            // setTimeout(() => {
+            //     this.router.navigate(['/home']);
+            // }, 1000);
         }else{
             this.failAction();
         }
@@ -90,7 +104,7 @@ export class AccountComponent {
     }
     checkAccount(){
         let index = this.userList.findIndex(e => e.username == this.user.username);
-        if(index == -1 || this.userList[index].pwd != this.user.pwd){
+        if(index == -1 || this.encryptionService.decrypt(this.userList[index].pwd) != this.user.pwd){
             return false;
         }else{
             return true;

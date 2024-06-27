@@ -23,8 +23,8 @@ export class NavbarComponent{
     }
     logout(){
         this.authService.signOut();
-        setTimeout(() => {
-            this.router.navigate(['/home']);
-        }, 2000);
+        // setTimeout(() => {
+        //     this.router.navigate(['/home']);
+        // }, 2000);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CalendarService} from "../_services/calendar.service";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {RecipeService} from "../_services/recipe.service";
@@ -9,12 +9,13 @@ import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component"
 import {Recipe} from "../_models/recipe";
 import {RecipeDialogComponent} from "../recipe-dialog/recipe-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Subscription} from "rxjs";
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
   styleUrls: ['./plan.component.css']
 })
-export class PlanComponent implements OnInit{
+export class PlanComponent implements OnInit, OnDestroy{
     calendarView: Date = new Date();
     constructor(private calendarService: CalendarService,
                 private recipeService: RecipeService,
@@ -31,32 +32,51 @@ export class PlanComponent implements OnInit{
     planList:number[]=[];
     recipeList:any[] = [];
     nutri = [];
+    newPlanList:number[] = [];
+    private subscriptions: Subscription[] = [];
+
     ngOnInit(){
-        this.calendarService.calendarView$.subscribe(e => {
+        this.favList = [];
+        this.events = [];
+        this.planList = [];
+        this.recipeList = []
+        var sub = this.calendarService.calendarView$.subscribe(e => {
             this.calendarView = e;
             this.setSelectedDayEvents();
         })
-        this.recipeService.recipeListInfo$.subscribe(res => {
+        this.subscriptions.push(sub);
+
+        sub = this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
+        this.subscriptions.push(sub);
+
         this.getFav();
     }
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
     getFav(){
+        var sub =
         this.authService.user$.subscribe(e => {
             if(e != null){
-                this.authService.getFav(e.id).subscribe(res =>{
+                var t = this.authService.getFav(e.id).subscribe(res =>{
                     this.favList = res.filter((element:any) => element.isDelete == false);
                     this.favoriteList = this.favList.map(e => e.recipeId);
                 })
-                this.authService.getPlan(e.id).subscribe(res => {
+                var s = this.authService.getPlan(e.id).subscribe(res => {
                     this.events = res;
                     this.events.forEach(t => t.date = new Date(t.date));
                     this.setSelectedDayEvents();
                 })
+                this.subscriptions.push(t);
+                this.subscriptions.push(s);
+
             }else{
-                this._bottomSheet.open(LoginSheetComponent);
             }
         });
+        this.subscriptions.push(sub);
+
     }
     getCalendarView(){
         return this.calendarView.toDateString();
@@ -117,20 +137,28 @@ export class PlanComponent implements OnInit{
                     recipeId: id,
                 })
         }
-        this.authService.user$.subscribe(e =>
+        var sub = this.authService.user$.subscribe(e =>
         {
             if(e != null){
                 addList.forEach(t => t.userId = e.id);
-                this.authService.postListPlan(addList).subscribe( (response:any) => {
-                    this.authService.getPlan(e.id).subscribe(res => {
+                var t = this.authService.postListPlan(addList).subscribe( (response:any) => {
+                    var s = this.authService.getPlan(e.id).subscribe(res => {
                         this.events = res;
                         this.events.forEach(t => t.date = new Date(t.date));
                         this.setSelectedDayEvents();
                     })
+                        this.subscriptions.push(s);
+
                     }
                 );
+                this.subscriptions.push(t);
+
+            }else {
+                this._bottomSheet.open(LoginSheetComponent);
             }
         })
+        this.subscriptions.push(sub);
+
         this.getFav();
     }
     getRecipeName(id: number){

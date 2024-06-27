@@ -1,16 +1,19 @@
-import {AfterViewInit, Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Recipe} from "../_models/recipe";
 import {RecipeService} from "../_services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../_services/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-recipe-dialog',
   templateUrl: './recipe-dialog.component.html',
   styleUrls: ['./recipe-dialog.component.css']
 })
-export class RecipeDialogComponent implements OnInit {
+export class RecipeDialogComponent implements OnInit, OnDestroy  {
+    private subscriptions: Subscription[] = [];
+
     @Input() recipe: Recipe | undefined;
     isLoggedIn$ = this.authService.isLoggedIn$;
     favList:any[] = [];
@@ -45,6 +48,9 @@ export class RecipeDialogComponent implements OnInit {
     onCancel() {
         this.dialogRef.close();
     }
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
     ngOnInit() {
         this.recipe = this.data;
         if(this.recipe?.caloricBreakdown){
@@ -55,12 +61,13 @@ export class RecipeDialogComponent implements OnInit {
         this.getFav();
     }
     getFav(){
-        this.authService.user$.subscribe(e => {
+        const sub = this.authService.user$.subscribe(e => {
             if(e != null)
                 this.authService.getFav(e.id).subscribe(res =>{
                     this.favList = res;
                 })
         });
+        this.subscriptions.push(sub);
     }
     toggleTable(): void {
         this.showTable = !this.showTable;
@@ -73,6 +80,7 @@ export class RecipeDialogComponent implements OnInit {
     }
     checkLike(id: any){
         if(this.isIdInList(id)){
+            const sub =
             this.authService.user$.subscribe(e => {
                 if(e!= null){
                     if(this.isIdInLikeList(id)) this.unlikeAction(); else this.likeAction();
@@ -88,8 +96,10 @@ export class RecipeDialogComponent implements OnInit {
                     })
                 }
             })
+            this.subscriptions.push(sub);
+
         }else{
-            this.authService.user$.subscribe(e =>
+            const sub = this.authService.user$.subscribe(e =>
             {
                 if(e != null)
                     this.authService.postFav({
@@ -101,6 +111,8 @@ export class RecipeDialogComponent implements OnInit {
                         }
                     );
             })
+            this.subscriptions.push(sub);
+
         }
     }
     likeAction(){
@@ -131,6 +143,7 @@ export class RecipeDialogComponent implements OnInit {
                 recipeId: this.recipe?.id,
                 userId: "",
             }
+            const sub =
             this.authService.user$.subscribe(e => {
                 if(e != null){
                     newRecipe.userId = e.id;
@@ -139,6 +152,8 @@ export class RecipeDialogComponent implements OnInit {
                     })
                 }
             })
+            this.subscriptions.push(sub);
+
         }
     }
 }

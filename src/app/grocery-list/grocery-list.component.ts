@@ -1,19 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {RecipeService} from "../_services/recipe.service";
 import {AuthService} from "../_services/auth.service";
 import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {LoginSheetComponent} from "../account/login-sheet/login-sheet.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-grocery-list',
   templateUrl: './grocery-list.component.html',
   styleUrls: ['./grocery-list.component.css']
 })
-export class GroceryListComponent implements OnInit{
+export class GroceryListComponent implements OnInit, OnDestroy{
     ingredientList : any[] = [];
     recipeList:any[] = [];
     cartList:any[] = [];
+    private subscriptions: Subscription[] = [];
+
     allComplete: boolean = false;
     displayedColumns: string[] = ['id', 'name', 'quantity', 'unit'];
     dataSource!: MatTableDataSource<any>;
@@ -23,25 +26,36 @@ export class GroceryListComponent implements OnInit{
     ) {
     }
     ngOnInit(){
-        this.recipeService.recipeListInfo$.subscribe(res => {
+        const sub = this.recipeService.recipeListInfo$.subscribe(res => {
             this.recipeList = res;
         });
+        this.subscriptions.push(sub);
+
         this.getCart();
         this.setIngredientList();
     }
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
     getCart(){
+        const sub =
         this.authService.user$.subscribe(e => {
-            if(e != null)
-                this.authService.getFav(e.id).subscribe(res =>{
-                    this.cartList = res.filter((element:any) => element.isDelete == false);
+            if(e != null) {
+                const t = this.authService.getFav(e.id).subscribe(res => {
+                    this.cartList = res.filter((element: any) => element.isDelete == false);
                     this.cartList.forEach((item) => {
                         item['selected'] = false;
                     });
                 })
+                this.subscriptions.push(t);
+
+            }
             else {
                 this._bottomSheet.open(LoginSheetComponent);
             }
         });
+        this.subscriptions.push(sub);
+
     }
     setIngredientList(){
         let list = this.cartList.filter(element => element.selected === true).map(e => e.recipeId);

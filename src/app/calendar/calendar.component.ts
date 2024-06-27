@@ -1,20 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CalendarService} from "../_services/calendar.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit{
+export class CalendarComponent implements OnInit, OnDestroy{
     calendarView = new Date();
     days : Date[]= [];
+    private subscriptions: Subscription[] = [];
+
     constructor(private calendarService: CalendarService) {}
     ngOnInit() {
         this.buildCalendarDays();
-        this.calendarService.calendarView$.subscribe(e => {
+        const sub = this.calendarService.calendarView$.subscribe(e => {
             this.calendarView = e;
         });
+        this.subscriptions.push(sub);
+
+    }
+    ngOnDestroy() {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
     getCalendarView(){
