@@ -54,6 +54,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { TestComponent } from './test/test.component';
 import {CdkOption} from "@angular/cdk/listbox";
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -83,6 +84,7 @@ const routes: Routes = [
     CalendarComponent,
     TestComponent,
     AddRecipeComponent,
+    RecipeFormComponent,
   ],
     imports: [
         HttpClientModule,

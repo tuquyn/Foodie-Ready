@@ -10,7 +10,8 @@ export class RecipeService {
     private jsonUrl = 'assets/recipes.json'; // Path to your JSON file
 
     private url = 'http://localhost:5141/api/Recipe';
-    private url2 = 'https://api.npoint.io/75f620a1ca3d0b58ce6b';
+    // private url2 = 'https://api.npoint.io/75f620a1ca3d0b58ce6b';
+    private url2 = 'https://api.npoint.io/1bd0c0b063811725be82';
 
     private recipeListSubject = new BehaviorSubject<any>([]);
     recipeList$: Observable<any> = this.recipeListSubject.asObservable();
@@ -24,19 +25,24 @@ export class RecipeService {
             this.recipeListInfoSubject.next(res);
         });
     }
-    getRecipes(): Observable<any> {
-        return this.http.get(this.jsonUrl);
-    }
 
-    addRecipe(newRecipe: any): Observable<any> {
-        return this.getRecipes().pipe(
-            map((recipes: any[]) => {
-                recipes.push(newRecipe);
-                // Simulate writing to a file by returning the updated recipes array
-                return recipes;
-            })
-        );
-    }
+    createRecipe(e:any) {
+        const url = this.url + '/Add';
+        let f = {
+            "title": e.title,
+            "summary": e.summary,
+            "cookingMinutes": e.cookingMinutes,
+            "readyInMinutes": e.readInMinutes,
+            "instructions": e.instructions,
+            "carbs": e.carbs,
+            "protein": e.protein,
+            "fat": e.fat,
+            "ingredients": e.ingredients,
+            "image": e.image,
+            "servings": e.servings,
+            "dishTypes": e.dishTypes
+        }
+        return this.http.post<any>(url, f);    }
     getRecipe(){
         const url = this.url + '/GetAll';
         return this.http.get<any>(url);

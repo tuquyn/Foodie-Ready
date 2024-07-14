@@ -6,30 +6,31 @@
             Recipe inspiration
             <mat-icon class="icon" (click)="search = !search">search</mat-icon>
         </h1>
-        <div >
-        <app-add-recipe></app-add-recipe>
+        <div  *ngIf="user != null && user['is_admin'] == true">
+            <button mat-raised-button color="primary" (click)="openNewRecipeDialog()">Create new recipe</button>
+<!--        <app-add-recipe></app-add-recipe>-->
 <!--            <button mat-raised-button color="primary" (click)="startExperiment = !startExperiment">Start the experiment!</button>-->
 <!--            <button mat-raised-button color="warn" *ngIf="startExperiment" [disabled]="selectedRecipes.length !== 4" (click)="openTest()">-->
 <!--                {{ selectedRecipes.length === 4 ? 'Continue' : 'Select 4 recipes' }}-->
 <!--            </button>-->
         </div>
-        <div *ngIf="user != null && user['is_admin'] == true">
-            <mat-form-field>
-                <mat-label>Select color</mat-label>
-                <mat-select (selectionChange)="changeColor($event.value)">
-                    <mat-option value="white">White</mat-option>
-                    <mat-option value="black">Black</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Select shape</mat-label>
-                <mat-select (selectionChange)="changeShape($event.value)">
-                    <mat-option value="square">Option 1</mat-option>
-                    <mat-option value="squircle">Option 2</mat-option>
-                    <mat-option value="shape3">Option 3</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+<!--        <div *ngIf="user != null && user['is_admin'] == true">-->
+<!--            <mat-form-field>-->
+<!--                <mat-label>Select color</mat-label>-->
+<!--                <mat-select (selectionChange)="changeColor($event.value)">-->
+<!--                    <mat-option value="white">White</mat-option>-->
+<!--                    <mat-option value="black">Black</mat-option>-->
+<!--                </mat-select>-->
+<!--            </mat-form-field>-->
+<!--            <mat-form-field>-->
+<!--                <mat-label>Select shape</mat-label>-->
+<!--                <mat-select (selectionChange)="changeShape($event.value)">-->
+<!--                    <mat-option value="square">Option 1</mat-option>-->
+<!--                    <mat-option value="squircle">Option 2</mat-option>-->
+<!--                    <mat-option value="shape3">Option 3</mat-option>-->
+<!--                </mat-select>-->
+<!--            </mat-form-field>-->
+<!--        </div>-->
         <mat-card class="search-box" *ngIf="search;">
             <mat-card-header>
                 <mat-card-title>Smart search</mat-card-title>
@@ -61,17 +62,21 @@
         </mat-card>
         <mat-spinner color="primary" *ngIf="dataSource.length === 0"></mat-spinner>
     </div>
-    <mat-grid-list cols="4">
+    <mat-grid-list cols="4" class="bg">
         <mat-grid-tile *ngFor="let item of dataSourceFilter">
             <mat-card  class="box-background" [ngStyle]="styles">
+<!--                <mat-card-header>{{item.name}}</mat-card-header>-->
                 <mat-card-header>
                     <mat-card-title class="name"><b>{{item.name}}</b>
                         <mat-checkbox *ngIf="startExperiment" (change)="onCheckboxChange(item.id)" ></mat-checkbox>
                     </mat-card-title>
 <!--                    <mat-card-subtitle [ngClass]="color">{{transform(item.dishTypes)}}</mat-card-subtitle>-->
                 </mat-card-header>
-                <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
-                <mat-card-content></mat-card-content>
+<!--                <mat-card-content>-->
+                    <img mat-card-image class="img" src="{{item.image}}" alt="" class="center" (click)="openDialog(item)">
+                    <div></div>
+<!--                </mat-card-content>-->
+<!--                <mat-card-content>   </mat-card-content>-->
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>

@@ -11,6 +11,7 @@ import _default from "chart.js/dist/core/core.interaction";
 import index = _default.modes.index;
 import {filter} from "rxjs";
 import {TestComponent} from "../test/test.component";
+import {RecipeFormComponent} from "../recipe-form/recipe-form.component";
 
 @Component({
   selector: 'app-recipe',
@@ -55,11 +56,40 @@ export class RecipeComponent implements OnInit{
             this.dataSourceFilter = this.dataSource;
             this.getOptions();
         })
+        this.recipeService.getRecipe().subscribe(s => {
+            for (let e of s) {
+                if (e.id > 100)
+                    this.setNewRecipeFromData(e);
+            }
+            this.dataSourceFilter = this.dataSource;
+
+            this.getOptions();
+        })
         this.authService.user$.subscribe(e => {
             this.user = e;
         })
     }
-    setNewRecipe(res: any){
+    setNewRecipeFromData(res: any) {
+        let temp = [
+            {
+                "name": "Calories",
+                "amount": res.carbs || 316.49,
+                "unit": "kcal",
+                "percentOfDailyNeeds": (res.carbs / (res.carbs + res.fat + res.protein)) || 15.82
+            },
+            {
+                "name": "Fat",
+                "amount": res.fat || 12.09,
+                "unit": "g",
+                "percentOfDailyNeeds": (res.fat / (res.carbs + res.fat + res.protein)) || 18.6
+            },
+            {
+                "name": "Protein",
+                "amount": res.protein || 12.09,
+                "unit": "g",
+                "percentOfDailyNeeds": (res.protein / (res.carbs + res.fat + res.protein)) || 18.6
+            }
+        ];
         let newRecipe: Recipe = {
             id: res.id || null,
             name: res.title || '',
@@ -68,13 +98,50 @@ export class RecipeComponent implements OnInit{
             preparationTime: res.preparationMinutes || 0,
             readyTime: res.readyInMinutes || 0,
             instruction: (res.analyzedInstructions && res.analyzedInstructions[0]?.steps) || [],
-            nutrition: res.nutrition.nutrients,
+            nutrition: res.nutrition?.nutrients || temp,
+            ingredient: res.extendedIngredients || [],
+            image: res.image || '',
+            servings: res.servings || 0,
+            caloricBreakdown: res.nutrition?.caloricBreakdown || {},
+            dishTypes: res.dishTypes,
+        }
+        if(newRecipe.name == "string") return;
+        if(newRecipe.id == 101)
+            console.log(newRecipe.image)
+        this.filter = this.filter.concat(newRecipe.dishTypes);
+        this.filter2 = this.filter2.concat(newRecipe.ingredient.map(e => e['aisle']));
+        this.dataSource.push(newRecipe);
+    }
+    setNewRecipe(res: any){
+        let temp = [
+            {
+                "name": "Calories",
+                "amount": 316.49,
+                "unit": "kcal",
+                "percentOfDailyNeeds": 15.82
+            },
+            {
+                "name": "Fat",
+                "amount": 12.09,
+                "unit": "g",
+                "percentOfDailyNeeds": 18.6
+            }];
+        let newRecipe: Recipe = {
+            id: res.id || null,
+            name: res.title || '',
+            description: res.summary || '',
+            cookingTime: res.cookingMinutes || 0,
+            preparationTime: res.preparationMinutes || 0,
+            readyTime: res.readyInMinutes || 0,
+            instruction: (res.analyzedInstructions && res.analyzedInstructions[0]?.steps) || [],
+            nutrition: res.nutrition.nutrients || temp,
             ingredient: res.extendedIngredients || [],
             image: res.image || '',
             servings: res.servings || 0,
             caloricBreakdown: res.nutrition.caloricBreakdown,
             dishTypes: res.dishTypes,
         }
+        if(newRecipe.id)console.log(newRecipe)
         this.filter = this.filter.concat(newRecipe.dishTypes);
         this.filter2 = this.filter2.concat(newRecipe.ingredient.map(e => e['aisle']));
         this.dataSource.push(newRecipe);
@@ -89,6 +156,14 @@ export class RecipeComponent implements OnInit{
         });
     }
 
+    openNewRecipeDialog() {
+        let dialogRef = this.dialog.open(RecipeFormComponent, {
+            width: '800px',
+            height: '500px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
 
     changeShape(shape: string) {
         this.shapeClass = shape;

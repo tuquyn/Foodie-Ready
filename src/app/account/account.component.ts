@@ -81,9 +81,10 @@ export class AccountComponent implements OnInit, OnDestroy{
             let index = this.userList.findIndex(e => e.username == this.user.username);
             this.authService.signIn(this.userList[index]);
             this.successAction();
-            // setTimeout(() => {
-            //     this.router.navigate(['/home']);
-            // }, 1000);
+
+            setTimeout(() => {
+                this.router.navigate(['/home']);
+            }, 1000);
         }else{
             this.failAction();
         }

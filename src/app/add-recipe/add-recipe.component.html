@@ -1,0 +1,26 @@
+<div *ngIf="user != null && user['is_admin'] == true">
+    <h2>Add New Recipe</h2>
+    <form (ngSubmit)="addRecipe()">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" [(ngModel)]="newRecipe.title" name="title" required>
+        </div>
+        <div>
+            <label for="image">Image URL</label>
+            <input type="text" id="image" [(ngModel)]="newRecipe.image" name="image" required>
+        </div>
+        <div>
+            <label for="servings">Servings</label>
+            <input type="number" id="servings" [(ngModel)]="newRecipe.servings" name="servings" required>
+        </div>
+        <div>
+            <label for="readyInMinutes">Ready in Minutes</label>
+            <input type="number" id="readyInMinutes" [(ngModel)]="newRecipe.readyInMinutes" name="readyInMinutes" required>
+        </div>
+        <!-- Add other fields similarly -->
+        <button type="submit">Add Recipe</button>
+    </form>
+</div>
+<div>
+    <button (click)="logNewRecipes()">Log new recipes</button>
+</div>

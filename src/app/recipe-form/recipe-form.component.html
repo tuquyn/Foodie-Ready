@@ -1,0 +1,71 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <h2>Create Recipe</h2>
+<!--    <div>-->
+<!--        <label for="id">ID:</label>-->
+<!--        <input id="id" formControlName="id" type="number">-->
+<!--    </div>-->
+    <div>
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" type="text">
+    </div>
+    <div>
+        <label for="summary">Description:</label>
+        <input id="summary" formControlName="summary" type="text">
+    </div>
+    <div>
+        <label for="cookingMinutes">Cooking Minutes:</label>
+        <input id="cookingMinutes" formControlName="cookingMinutes" type="number">
+    </div>
+    <div>
+        <label for="readyInMinutes">Ready in Minutes:</label>
+        <input id="readyInMinutes" formControlName="readyInMinutes" type="number">
+    </div>
+    <div class="disabled">
+        <label for="instructions">Instructions:</label>
+        <div formArrayName="instructions" class="dynamic-field-container">
+            <div *ngFor="let instruction of instructions.controls; let i = index">
+                <input [formControlName]="i" type="text">
+            </div>
+        </div>
+        <button type="button" (click)="addInstruction()">Add Instruction</button>
+    </div>
+    <div>
+        <label for="carbs">Carbs:</label>
+        <input id="carbs" formControlName="carbs" type="number">
+    </div>
+    <div>
+        <label for="protein">Protein:</label>
+        <input id="protein" formControlName="protein" type="number">
+    </div>
+    <div>
+        <label for="fat">Fat:</label>
+        <input id="fat" formControlName="fat" type="number">
+    </div>
+    <div class="disabled">
+        <label for="ingredients">Ingredients:</label>
+        <div formArrayName="ingredients" class="dynamic-field-container">
+            <div *ngFor="let ingredient of ingredients.controls; let i = index">
+                <input [formControlName]="i" type="text">
+            </div>
+        </div>
+        <button type="button" (click)="addIngredient()">Add Ingredient</button>
+    </div>
+    <div>
+        <label for="image">Image:</label>
+        <input id="image" formControlName="image" type="text">
+    </div>
+    <div>
+        <label for="servings">Servings:</label>
+        <input id="servings" formControlName="servings" type="number">
+    </div>
+    <div class="disabled">
+        <label for="dishTypes">Dish Types:</label>
+        <div formArrayName="dishTypes" class="dynamic-field-container">
+            <div *ngFor="let dishType of dishTypes.controls; let i = index">
+                <input [formControlName]="i" type="text">
+            </div>
+        </div>
+        <button type="button" (click)="addDishType()">Add Dish Type</button>
+    </div>
+    <button type="submit">Submit</button>
+</form>
