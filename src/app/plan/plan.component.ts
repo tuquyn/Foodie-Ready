@@ -193,7 +193,6 @@ export class PlanComponent implements OnInit, OnDestroy{
     getNutrition(){
         for(let p of this.planList){
             let res = this.recipeList.find(e => p == e.id).nutrition.nutrients;
-            console.log(res)
         }
     }
 }

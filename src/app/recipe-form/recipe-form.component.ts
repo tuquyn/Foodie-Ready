@@ -56,7 +56,7 @@ export class RecipeFormComponent {
     }
 
     onSubmit() {
-        console.log(this.recipeForm.value);
+        // console.log(this.recipeForm.value);
         // Add your API call here to save the form data
         this.recipeService.createRecipe(this.recipeForm.value).subscribe(e => {
 

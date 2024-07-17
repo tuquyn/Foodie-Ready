@@ -92,7 +92,6 @@ export class AuthService {
         return this.http.post<any>(url, id);
     }
     postListPlan(e:any[]){
-        console.log(e);
         const url = this.url_plan + 'AddList';
         return this.http.post<any>(url, e);
     }

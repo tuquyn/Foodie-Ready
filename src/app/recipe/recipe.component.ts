@@ -106,8 +106,8 @@ export class RecipeComponent implements OnInit{
             dishTypes: res.dishTypes,
         }
         if(newRecipe.name == "string") return;
-        if(newRecipe.id == 101)
-            console.log(newRecipe.image)
+        // if(newRecipe.id == 101)
+        //     console.log(newRecipe.image)
         this.filter = this.filter.concat(newRecipe.dishTypes);
         this.filter2 = this.filter2.concat(newRecipe.ingredient.map(e => e['aisle']));
         this.dataSource.push(newRecipe);
